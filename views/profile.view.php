@@ -43,6 +43,7 @@
                             <input  class="custom-file-input" id="file" type="file" name="file" required/><br><br>
                                 
                             <button class="btn btn-success" type="submit" name="avatar" value="Envoyer">Valider </button><br> <br>
+                            
                             <?php header("Cache-Control: no-cache, must-revalidate"); ?>
                            
 
