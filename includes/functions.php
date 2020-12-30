@@ -23,6 +23,16 @@ if(!function_exists('get_session')){
         
     }
 }
+//check if a user is connected 
+
+if(!function_exists('is_logged_in')){
+
+    function is_logged_in() {
+
+       return isset($_SESSION['user_id']) || isset($_SESSION['user_pseudo']);
+        
+    }
+}
 
 //find user by id
 

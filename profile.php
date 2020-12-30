@@ -9,12 +9,14 @@
 
     require('includes/constants.php');
 
+    header("Cache-Control: no-cache, must-revalidate");
+
 
     if(!empty($_GET['id'])){
         //recup info user db utilisant id
         $user= find_user_by_id($_GET['id']);
 
-        
+                
 
         if(!$user){
             redirect('index.php');
@@ -26,9 +28,52 @@
 
     }
 
+    if(isset($_POST['update'])) {
+
+        $errors= [];
+
+        //si tout les champs ont ete rempli
+        if(not_empty(['name', 'city', 'country', 'club', 'bio', 'sex'])) {
+            
+            extract($_POST);
+
+            $q= $db->prepare('UPDATE users SET name= :name, city= :city, country= :country, club= :club, bio= :bio, sex= :sex WHERE id= :id ');
+
+            $q->execute([
+                'name' => $name,
+                'city' => $city,
+                'country' => $country,
+                'club' => $club,
+                'bio' => $bio,
+                'sex' => $sex,
+                'id' => get_session('user_id')
+            ]);
+            
+            set_flash("Votre profil a été mis à jour");
+            header('Location: profile.php?id='.get_session('user_id'));
+            
+            
+        } else {
+            save_input_data();
+            $errors[]= "Veuillez remplir tout les champs marqués d'un (*)";
+        }
+
+
+
+    } else {
+        clear_input_data();
+    }
+
     
 if(isset($_FILES['file']) AND !empty($_FILES['file']['name'])) {
    $tailleMax = 2097152;
+    // 2mo  = 2097152
+    // 3mo  = 3145728
+    // 4mo  = 4194304
+    // 5mo  = 5242880
+    // 7mo  = 7340032
+    // 10mo = 10485760
+    // 12mo = 12582912
    $extensionsValides = array('jpg', 'jpeg', 'gif', 'png');
    if($_FILES['file']['size'] <= $tailleMax) {
       $extensionUpload = strtolower(substr(strrchr($_FILES['file']['name'], '.'), 1));
@@ -41,6 +86,7 @@ if(isset($_FILES['file']) AND !empty($_FILES['file']['name'])) {
                'avatar' => get_session('user_id').".".$extensionUpload,
                'id' => get_session('user_id')
                ));
+            
             header('Location: profile.php?id='.get_session('user_id'));
          } else {
             $msg = "Erreur durant l'importation de votre photo de profil";
@@ -52,9 +98,7 @@ if(isset($_FILES['file']) AND !empty($_FILES['file']['name'])) {
       $msg = "Votre photo de profil ne doit pas dépasser 2Mo";
    }
 }
-
-        
-          
+    
     
     
 

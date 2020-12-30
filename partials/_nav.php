@@ -13,15 +13,24 @@
           <li class="nav-item active">
             <a class="nav-link <?= set_active('index')?> " aria-current="page" href="index.php">Accueil</a>
           </li>
+
+          <?php if(is_logged_in() ):  ?>
+
+          <a class="nav-link <?= set_active('profile')?>" href="profile.php?id=<?=get_session('user_id')?>">Mon Profil</a>
+          <li class="nav-item">
+            <a class="nav-link " href="logout.php" tabindex="-1" aria-disabled="true">Déconnexion</a>
+          </li>
+
+          <?php else: ?>
+            
           <li class="nav-item">
             <a class="nav-link <?= set_active('login')?>" href="login.php">Connexion</a>
           </li>
           <li class="nav-item">
             <a class="nav-link <?= set_active('register')?>" href="register.php" tabindex="-1" aria-disabled="true">Inscription</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link <?= set_active('logout')?>" href="logout.php" tabindex="-1" aria-disabled="true">Déconnexion</a>
-          </li>
+          
+          <?php endif; ?>
           
         </ul>
         <form class="d-flex">

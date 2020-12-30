@@ -26,7 +26,7 @@
                 
             </div>            
 
-            <input type="submit" class="btn btn-primary" value="Connexion" name="login">
+            <input type="submit" class="btn btn-success" value="Connexion" name="login">
 
         </form>
     

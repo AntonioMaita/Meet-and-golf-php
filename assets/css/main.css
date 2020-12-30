@@ -4,6 +4,7 @@
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;
+    
   }
 
   @media (min-width: 768px) {
@@ -12,12 +13,34 @@
     }
   }
   .container {
-      padding-top: 100px;
+      padding-top: 75px;
+      /* background-color: #D6E9C6; */
+      background-image: url(/assets/img/1358598.jpg);
+      background-repeat:no-repeat;
+      background-size:contain;
+      background-position:center;
   }
 
+  .main-content {
+      /* background-color: #D6E9C6; */
+      background-image: url(/assets/img/1358598.jpg);
+      background-repeat:no-repeat;
+      background-size:contain;
+      background-position:center;
+
+  }
+
+  .bg {
+    background-color: #D6E9C6;
+    background-image: url(/assets/img/1358598.jpg);
+      background-repeat:no-repeat;
+      background-size:contain;
+      background-position:center;
+  }
+  
   /* Parsley CSS */
 
-  input.parsley-success,
+input.parsley-success,
 select.parsley-success,
 textarea.parsley-success {
   color: #468847;
@@ -53,3 +76,4 @@ textarea.parsley-error {
 }
 
 /* End Parsley CSS */
+

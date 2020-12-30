@@ -4,11 +4,11 @@
 <div class="main-content">
     <main class="container">
 
-        <h1 class="lead">Devenez dés à présent membre ! </h1>
+        <h1 class="lead shadow p-3 col-md-6">Devenez dés à présent membre ! </h1>
         
         <?php include('partials/_error.php'); ?>
 
-        <form data-parsley-validate method="post" class="shadow-none p-3 col-md-6 col-md-offset-3 mb-5 bg-light rounded" autocomplete="off">
+        <form data-parsley-validate method="post" class="shadow p-3 col-md-6 col-md-offset-3 mb-5 bg-light rounded" autocomplete="off">
 
             <!-- Name field -->
             <div class="form-group">
@@ -46,7 +46,7 @@
                 
             </div><br>
 
-            <input type="submit" class="btn btn-primary" value="Inscription" name="register">
+            <input type="submit" class="btn btn-success" value="Inscription" name="register">
 
 
 
