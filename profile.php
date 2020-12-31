@@ -33,14 +33,15 @@
         $errors= [];
 
         //si tout les champs ont ete rempli
-        if(not_empty(['name', 'city', 'country', 'club', 'bio', 'sex'])) {
+        if(not_empty(['name', 'adress', 'city', 'country', 'club', 'bio', 'sex'])) {
             
             extract($_POST);
 
-            $q= $db->prepare('UPDATE users SET name= :name, city= :city, country= :country, club= :club, bio= :bio, sex= :sex WHERE id= :id ');
+            $q= $db->prepare('UPDATE users SET name= :name, adress= :adress, city= :city, country= :country, club= :club, bio= :bio, sex= :sex WHERE id= :id ');
 
             $q->execute([
                 'name' => $name,
+                'adress' => $adress,
                 'city' => $city,
                 'country' => $country,
                 'club' => $club,

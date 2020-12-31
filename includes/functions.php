@@ -42,7 +42,7 @@ if(!function_exists('find_user_by_id')){
 
         global $db;
 
-        $q = $db->prepare('SELECT name, pseudo, email, sex, city, country, club, bio FROM users WHERE id = ?');
+        $q = $db->prepare('SELECT name, pseudo, email, sex, adress, city, country, club, bio FROM users WHERE id = ?');
         $q->execute([$id]);
 
         $data = current($q->fetchAll(PDO::FETCH_OBJ));

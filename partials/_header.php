@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Antonio Maita">
+    <link rel="shortcut icon" href="assets/favicon/favicon.ico">
     
     <title>
 
@@ -26,7 +27,7 @@
   <link rel="stylesheet" href="assets/css/main.css">
     
   </head>
-  <body class="bg">
+  <body >
 
 <?php include('partials/_nav.php'); ?>
 <?php include('partials/_flash.php'); ?>

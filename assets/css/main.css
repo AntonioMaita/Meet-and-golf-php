@@ -14,30 +14,23 @@
   }
   .container {
       padding-top: 75px;
-      /* background-color: #D6E9C6; */
-      background-image: url(/assets/img/1358598.jpg);
-      background-repeat:no-repeat;
-      background-size:contain;
-      background-position:center;
-  }
-
-  .main-content {
-      /* background-color: #D6E9C6; */
-      background-image: url(/assets/img/1358598.jpg);
-      background-repeat:no-repeat;
-      background-size:contain;
-      background-position:center;
-
-  }
-
-  .bg {
-    background-color: #D6E9C6;
-    background-image: url(/assets/img/1358598.jpg);
-      background-repeat:no-repeat;
-      background-size:contain;
-      background-position:center;
+      
   }
   
+
+  body{
+      
+      background-image: url(../img/1358598.jpg);
+      background-repeat:no-repeat;
+      -webkit-background-size: cover; 
+      -moz-background-size: cover; 
+      -o-background-size: cover;
+      background-size:cover;
+      overflow: hidden;   
+      
+  }
+
+      
   /* Parsley CSS */
 
 input.parsley-success,

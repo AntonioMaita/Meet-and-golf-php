@@ -62,12 +62,12 @@
                             </div> <br> <br>
                             
                             <div class="col-sm-6 shadow" >                                
-                                <h6>Ville et pays</h6>
+                                <h6>Adresse, Ville et pays</h6>
                                 <?= 
-                                    e($user->city) &&  e($user->country) ? '<i class="fas fa-map-marker-alt"></i>&nbsp;'.e($user->city) . ' - ' .e($user->country) : '';
+                                    e($user->adress) && e($user->city) &&  e($user->country) ? '<i class="fas fa-map-marker-alt"></i>&nbsp;'.e($user->adress). ' - '.e($user->city) . ' - ' .e($user->country) : '';
                                 ?>
                                 <br>
-                                <a href="https://google.com/maps?q=<?= e($user->city) . ' ' .e($user->country)?>" target="_blank">Voir sur Google Maps </a>
+                                <a href="https://google.com/maps?q=<?= e($user->adress). ' '.e($user->city) . ' ' .e($user->country)?>" target="_blank">Voir sur Google Maps </a>
                                 <br> <br>    
                             </div>                    
                             
@@ -124,31 +124,42 @@
                                     <div class="form-group">
                                         <label for="name">Nom<span class="text-danger">*</span></label>
                                         <input type="text" name="name" id="name" class="form-control"
-                                                required="required">
+                                                required="required" value="<?= get_input('name')  ?: e($user->name)?>">
                                     </div>
                                 </div>
+
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="city">Ville<span class="text-danger">*</span></label>
-                                        <input type="text" name="city" id="city" class="form-control" required="required">
+                                        <input type="text" name="city" id="city" class="form-control"
+                                         required="required" value="<?=get_input('city')  ?: e($user->city)?>">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
+                                    
                                     <div class="form-group">
                                         <label for="country">Pays<span class="text-danger">*</span></label>
-                                        <input type="text" name="country" id="country" class="form-control" required="required">
+                                        <input type="text" name="country" id="country" class="form-control"
+                                         required="required" value="<?= get_input('country')  ?: e($user->country)?>">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="adress">Adresse</label>
+                                        <input type="text" name="adress" id="adress" class="form-control"
+                                          value="<?=get_input('adress')  ?: e($user->adress)?>">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group" >
                                         <label for="sex">Sexe<span class="text-danger">*</span></label>
-                                        <select required="required" name="sex" id="sex" class="form-control"  >
+                                        <select required="required" name="sex" id="sex" class="form-control">
                                             <option value="null">Veuillez selectionner votre sexe</option>
-                                            <option value="H">Homme</option>
-                                            <option value="F">Femme</option>
-                                            <option value="X">X</option>
+                                            <option value="H" <?= $user->sex == "H" ? "selected" : "" ?>>Homme</option>
+                                            <option value="F" <?= $user->sex == "F" ? "selected" : "" ?>>Femme</option>
+                                            <option value="X" <?= $user->sex == "X" ? "selected" : "" ?>>X</option>
                                         </select>
                                     </div>
                                 </div>
@@ -157,7 +168,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="club">Votre club de golf<span class="text-danger">*</span></label>
-                                        <input type="text" name="club" id="club" class="form-control" required="required">
+                                        <input type="text" name="club" id="club" class="form-control" 
+                                        required="required" value="<?=get_input('club')  ?: e($user->club)?>">
                                     </div>
                                 </div>
                             </div>
@@ -165,7 +177,8 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="bio">Votre Biographie<span class="text-danger">*</span></label>
-                                        <textarea name="bio" id="bio" cols="30" row="10" placeholder="Entrez votre biographie" class="form-control" required="required"></textarea><br>
+                                        <textarea name="bio" id="bio" cols="30" row="10" placeholder="Entrez votre biographie"
+                                         class="form-control" required="required"><?= get_input('bio')  ?: e($user->bio)?></textarea><br>
                                     </div>
                                 </div>
                             </div>
