@@ -26,9 +26,50 @@
       -moz-background-size: cover; 
       -o-background-size: cover;
       background-size:cover;
-      overflow: hidden;   
+       overflow: auto;
       
   }
+
+    
+  .register {
+    opacity: 90%;
+  }
+
+  .login {
+    opacity : 85%;
+  }
+
+  #index {
+    opacity : 75%;
+  }
+
+  #post {
+    min-height: 150px;
+    opacity: 70%;
+  }
+
+  .question {
+    opacity: 85%;
+    margin-top: 20px;
+  }
+
+  .fildactualite {
+    opacity: 85%;
+  }
+  .messagepost {
+    opacity: 90%;
+  }
+
+  .completeprofile {
+    opacity: 90%;
+  }
+
+  .profile {
+    opacity: 90%;
+  }
+  /* .listeutilisateurs{
+    opacity: 90%;
+  } */
 
       
   /* Parsley CSS */
@@ -70,3 +111,9 @@ textarea.parsley-error {
 
 /* End Parsley CSS */
 
+
+.row {
+  text-align: center;
+  margin: 10px;
+    
+}

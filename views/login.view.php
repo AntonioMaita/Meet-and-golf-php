@@ -4,11 +4,11 @@
 <div class="main-content">
     <main class="container">
 
-        <h1 class="lead col-md-6 shadow">Connexion</h1>
+        <h1 class="lead col-md-6 shadow bg-secondary text-white">Connexion</h1>
         
         <?php include('partials/_error.php'); ?>
 
-        <form data-parsley-validate method="post" class="shadow p-3 col-md-6 col-md-offset-3 mb-5 bg-light rounded" autocomplete="off">
+        <form data-parsley-validate method="post" class="shadow p-3 col-md-6 col-md-offset-3 mb-5 bg-light rounded login" autocomplete="off">
 
            
             <!-- Identifiant field -->
@@ -29,6 +29,7 @@
             <input type="submit" class="btn btn-success" value="Connexion" name="login">
 
         </form>
+       
     
 
     </main><!-- /.container -->

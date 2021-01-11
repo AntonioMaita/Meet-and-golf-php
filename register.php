@@ -44,13 +44,13 @@ require('includes/constants.php');
             }
 
             if(count($errors) == 0){
-                //envoi d'un mail d'activation
+                //generation des parametres pour l'envoi de mail
                 $to = $email;
                 $subject = WEBSITE_NAME." - ACTIVATION DE COMPTE";
-                $password=sha1($password);
+                $password=bcrypt_hash_password($password);
                 $token = sha1($pseudo.$email.$password);
                 
-
+                //recuperation du mail deja formater
                 ob_start();
                 require('templates/emails/activation.tmpl.php');
                 $content = ob_get_clean();
@@ -58,7 +58,8 @@ require('includes/constants.php');
                 $headers = 'MIME-Version: 1.0'."\r\n";
 
                 $headers .='Content-type: text/html; charset=utf-8'."\r\n";
-
+                
+                //envoi d'un mail d'activation
                 mail($to, $subject, $content, $headers);
 
                  //informer l'utilisateur pour qu'il verifie sa boite de reception

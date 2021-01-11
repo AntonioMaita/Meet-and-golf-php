@@ -8,4 +8,5 @@ $_SESSION = [];
 
 redirect('login.php');
 
+
 ?>

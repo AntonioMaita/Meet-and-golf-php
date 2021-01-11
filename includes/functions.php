@@ -1,5 +1,5 @@
 <?php 
-
+//Sanitizer
 if(!function_exists('e')){
 
     function e($string) {
@@ -11,6 +11,27 @@ if(!function_exists('e')){
         
     }
 }
+
+if(!function_exists('redirect_intent_or')){
+
+    function redirect_intent_or($default_url) {
+
+        if($_SESSION['forwarding_url']){
+            
+            $url = $_SESSION['forwarding_url'];
+            $_SESSION['forwarding_url'] = null ;
+            
+        }else {
+            $url = $default_url ;
+        }
+
+        
+        redirect($url);
+        
+    }
+}
+
+
 //get a session value by key 
 if(!function_exists('get_session')){
 
@@ -34,6 +55,31 @@ if(!function_exists('is_logged_in')){
     }
 }
 
+//hash password with blowfish algorithm
+if(!function_exists('bcrypt_hash_password')){
+
+    function bcrypt_hash_password($value, $options = array()) {
+        $cost = isset($options['rounds']) ? $options['rounds'] : 10;
+        $hash = password_hash($value, PASSWORD_BCRYPT, array('cost' => $cost));
+
+        if($hash === false) {
+            throw new Exception("Bcrypt hashing n'est pas supporte.");
+        }
+        return $hash;
+        
+        
+    }
+}
+
+//verify password 
+
+if(!function_exists('bcrypt_verify_password')){
+    function bcrypt_verify_password($value, $hashedValue) {
+        return password_verify($value, $hashedValue);
+    }
+}
+
+
 //find user by id
 
 if(!function_exists('find_user_by_id')){
@@ -42,7 +88,7 @@ if(!function_exists('find_user_by_id')){
 
         global $db;
 
-        $q = $db->prepare('SELECT name, pseudo, email, sex, adress, city, country, club, bio FROM users WHERE id = ?');
+        $q = $db->prepare('SELECT name, pseudo, email, sex, adress, city, country, club, bio, created_at FROM users WHERE id = ?');
         $q->execute([$id]);
 
         $data = current($q->fetchAll(PDO::FETCH_OBJ));
@@ -54,6 +100,29 @@ if(!function_exists('find_user_by_id')){
         
     }
 }
+
+if(!function_exists('find_post')){
+
+    function find_post($id) {
+
+        global $db;
+
+        $q = $db->prepare('SELECT * FROM post');
+        $q->execute([$id]);
+
+        $data = $q->fetchAll(PDO::FETCH_OBJ);
+        
+
+        
+        $q->closeCursor();
+        return $data;
+
+        
+        
+    }
+}
+
+
 
 
 if(!function_exists('not_empty')){

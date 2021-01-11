@@ -15,27 +15,31 @@ require('includes/constants.php');
             
             extract($_POST);
 
-            $q= $db->prepare("SELECT id , pseudo FROM users WHERE (pseudo= :identifiant OR email= :identifiant)
-                            AND password= :password AND active = '1'");
+            $q= $db->prepare("SELECT id , pseudo, password AS hashed_password, email FROM users WHERE (pseudo= :identifiant OR email= :identifiant)
+                             AND active = '1'");
 
             $q->execute([
-                'identifiant' => $identifiant,
-                'password' => sha1($password)
+                'identifiant' => $identifiant
+                
+                
             ]);
 
-            $userHasBeenFound = $q->rowCount();
+            $user= $q->fetch(PDO::FETCH_OBJ);
+            
 
-            if($userHasBeenFound) {
+            if($user && bcrypt_verify_password($password, $user->hashed_password)) {
 
-                $user = $q->fetch(PDO::FETCH_OBJ);
+                
                                 
                 $_SESSION['user_id'] = $user->id;
                 $_SESSION['user_pseudo'] = $user->pseudo;
                 $_SESSION['user_avatar'] = $user->avatar;
+                $_SESSION['user_email'] = $user->email;
 
-                redirect('profile.php?id='.$user->id);
+                redirect_intent_or('profile.php?id='.$user->id);
+                
             } else {
-                set_flash('Combinaison Identifiant/Password incorrecte', 'warning');
+                set_flash('Combinaison Identifiant/Password incorrecte', 'danger');
                 save_input_data();
             }
             
