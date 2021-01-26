@@ -8,21 +8,21 @@
 
     <div class="row listeutilisateurs">
         
-        <div class="card bg-success shadow card-header text-white bg-success">
+        <div class="card shadow text-white bg-success">
             
                 <h1 class="card-title shadow">Liste des utilisateurs</h1>
-                <div class="row">
+                
                     <?php foreach($users as $user) : ?>   
                 
-                    <div class="listuser col-4 card card-list bg-dark mx-auto">                          
+                    <div class="listuser card  bg-dark">                          
                             <?php if ($user->avatar) { ?>
 
                         <a href="profile.php?id=<?=e($user->id)?>">       
-                            <img class="avatar rounded-circle" src="assets/avatars/<?php echo $user->avatar;?>" alt="avatar" width="40px" height="40px"/>
+                            <img class="avatar rounded-circle" src="assets/avatars/<?php echo $user->avatar;?>" alt="avatar" width="60px" height="60px"/>
                         </a>  
                             <?php } else {?>
                         <a href="profile.php?id=<?=e($user->id)?>">
-                                <img class="avatar rounded-circle" src="assets/avatars/defaults/default.png" alt="default" width="40px" height="40px"/>
+                                <img class="avatar rounded-circle" src="assets/avatars/defaults/default.png" alt="default" width="60px" height="60px"/>
                                     <?php } ?>
                         </a>
                         
@@ -33,12 +33,12 @@
                             
                         </h6>                                                                      
                         
-                    </div> 
+                    </div> <br>
                 
                     <?php endforeach ?>
 
                     
-                </div>  
+                
                 <div id="pagination"><?=$pagination?></div>                   
                 
             

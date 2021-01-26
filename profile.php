@@ -1,14 +1,10 @@
 <?php    
     session_start();
 
+    require("includes/init.php");  
+
     include('filters/auth_filter.php');
-
-    require('config/database.php');
     
-    require('includes/functions.php');
-
-    require('includes/constants.php');
-
     header("Cache-Control: no-cache, must-revalidate");
 
 
@@ -21,6 +17,14 @@
         if(!$user){
             redirect('index.php');
 
+        } else {
+            $q=$db->prepare('SELECT * FROM microposts WHERE  user_id = :user_id ORDER BY created_at
+                            DESC');
+            $q->execute([
+                'user_id' => e($_GET['id'])
+            ]);
+            $microposts = $q->fetchAll(PDO::FETCH_OBJ);
+            
         }
 
     } else {
@@ -28,12 +32,8 @@
 
     }
 
-     
-    
-    
     
 
-    
+        
     
   require('views/profile.view.php');
-

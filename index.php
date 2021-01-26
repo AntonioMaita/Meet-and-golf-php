@@ -1,10 +1,12 @@
 <?php    
     session_start();
-    
-    require('includes/functions.php');
 
+    require("includes/init.php");    
+    
+    
+        
     require('views/index.view.php');
 
-    require('config/database.php'); 
+    
 
 

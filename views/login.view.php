@@ -4,7 +4,7 @@
 <div class="main-content">
     <main class="container">
 
-        <h1 class="lead col-md-6 shadow bg-secondary text-white">Connexion</h1>
+        <h1 class="card lead col-md-6 shadow bg-secondary text-white">Connexion</h1>
         
         <?php include('partials/_error.php'); ?>
 
@@ -24,7 +24,16 @@
                 <label class="control-label" for="password">Mot de passe:</label>
                 <input type="password" class="form-control" id="password" name="password" required="required">
                 
-            </div>            
+            </div>
+
+            <!-- Remember me -->
+            <div class="form-group">
+                <label class="control-label" for="remember_me">
+                    <input type="checkbox" name="remember_me" id="remember_me">
+                    Garder ma session active
+                </label>
+                
+            </div> <br>           
 
             <input type="submit" class="btn btn-success" value="Connexion" name="login">
 

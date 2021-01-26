@@ -1,15 +1,10 @@
 <?php
 session_start();
 
+require("includes/init.php");  
+
 include('filters/auth_filter.php');
 
-require('config/database.php');
-
-require('includes/functions.php');
-
-require('includes/constants.php');
-
-header("Cache-Control: no-cache, must-revalidate");
 
 
 if(!empty($_GET['id']) && $_GET['id'] === get_session('user_id')){
@@ -68,37 +63,38 @@ clear_input_data();
 
 
 if(isset($_FILES['file']) AND !empty($_FILES['file']['name'])) {
-$tailleMax = 2097152;
-// 2mo  = 2097152
-// 3mo  = 3145728
-// 4mo  = 4194304
-// 5mo  = 5242880
-// 7mo  = 7340032
-// 10mo = 10485760
-// 12mo = 12582912
-$extensionsValides = array('jpg', 'jpeg', 'gif', 'png');
-if($_FILES['file']['size'] <= $tailleMax) {
-$extensionUpload = strtolower(substr(strrchr($_FILES['file']['name'], '.'), 1));
-if(in_array($extensionUpload, $extensionsValides)) {
- $chemin = "assets/avatars/".get_session('user_id').".".$extensionUpload;
- $resultat = move_uploaded_file($_FILES['file']['tmp_name'], $chemin);
- if($resultat) {
-    $updateavatar = $db->prepare('UPDATE users SET avatar = :avatar WHERE id = :id');
-    $updateavatar->execute(array(
-       'avatar' => get_session('user_id').".".$extensionUpload,
-       'id' => get_session('user_id')
-       ));
-    
-    header('Location: profile.php?id='.get_session('user_id'));
- } else {
-    $msg = "Erreur durant l'importation de votre photo de profil";
- }
-} else {
- $msg = "Votre photo de profil doit être au format jpg, jpeg, gif ou png";
-}
-} else {
-$msg = "Votre photo de profil ne doit pas dépasser 2Mo";
-}
+    $tailleMax = 2097152;
+    // 2mo  = 2097152
+    // 3mo  = 3145728
+    // 4mo  = 4194304
+    // 5mo  = 5242880
+    // 7mo  = 7340032
+    // 10mo = 10485760
+    // 12mo = 12582912
+    $extensionsValides = array('jpg', 'jpeg', 'gif', 'png');
+    if($_FILES['file']['size'] <= $tailleMax) {
+        $extensionUpload = strtolower(substr(strrchr($_FILES['file']['name'], '.'), 1));
+        if(in_array($extensionUpload, $extensionsValides)) {
+            $chemin = "assets/avatars/".get_session('user_id').".".$extensionUpload;
+            $resultat = move_uploaded_file($_FILES['file']['tmp_name'], $chemin);
+            if($resultat) {
+                $updateavatar = $db->prepare('UPDATE users SET avatar = :avatar WHERE id = :id');
+                $updateavatar->execute(array(
+                'avatar' => get_session('user_id').".".$extensionUpload,
+                'id' => get_session('user_id')
+                ));
+                
+                header('Location: profile.php?id='.get_session('user_id'));
+                header("Cache-Control: no-cache, must-revalidate");
+            } else {
+                $msg = "Erreur durant l'importation de votre photo de profil";
+            }
+        } else {
+            $msg = "Votre photo de profil doit être au format jpg, jpeg, gif ou png";
+        }
+    } else {
+        $msg = "Votre photo de profil ne doit pas dépasser 2Mo";
+    }
 }
 
 require('views/edit_user.view.php');

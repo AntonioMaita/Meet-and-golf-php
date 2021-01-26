@@ -1,11 +1,8 @@
 <?php 
 session_start();
 
-
+require("includes/init.php");  
 include('filters/guest_filter.php');
-require('config/database.php');
-require('includes/functions.php');
-require('includes/constants.php');
 
 //si le formulaire a ete soumis
     if(isset($_POST['login'])) {
@@ -27,14 +24,17 @@ require('includes/constants.php');
             $user= $q->fetch(PDO::FETCH_OBJ);
             
 
-            if($user && bcrypt_verify_password($password, $user->hashed_password)) {
-
-                
+            if($user && bcrypt_verify_password($password, $user->hashed_password)) {                
                                 
                 $_SESSION['user_id'] = $user->id;
                 $_SESSION['user_pseudo'] = $user->pseudo;
                 $_SESSION['user_avatar'] = $user->avatar;
                 $_SESSION['user_email'] = $user->email;
+
+                if(isset($_POST['remember_me']) && $_POST['remember_me'] == 'on'){
+                    remember_me($user->id);
+                    
+                }
 
                 redirect_intent_or('profile.php?id='.$user->id);
                 

@@ -7,28 +7,58 @@
     <div class="container">
 
         <div class="row">
+            
             <div class=" col-md-6">
-
+                
                 <div class="card shadow profile">
                     <div class="card-header text-white bg-success mb-3 shadow ">
-                        <h3 class="card-title">Profil de <?=e($user->pseudo)?></h3>
+                        <h3 class="card-title">Profil de <?=e($user->pseudo)?> 
+                        <p class=" card-text float-end">(<?=friends_count($_GET['id'])?> ami<?=friends_count($_GET['id']) <= 1 ? '' : 's'?>)</p> </h3>
                     </div>
                     <div class="card-body shadow">
-                        <div>
-                            <?php  
-                                // $id = $_GET['id'];
-                                $q = $db->query("SELECT avatar from users where id = ".$_GET['id']);
-                                $img = $q->fetch();
-                                                               
-                                if(!empty($img['avatar'])) {
-                                                                                                                            
-                            ?>
-                            <img class="rounded-circle img-thumbnail" src="assets/avatars/<?php echo $img['avatar'];?>" alt="avatar" width="150px" height="150px"  /><br><br>
-                                <?php } else { ?> 
-                            <img class="rounded-circle" src="assets/avatars/defaults/default.png" alt="default" width="25%" >
-                                <?php } ?>
-                                                                
+                        <div class="row">
+                            <div class="col-md-6">
+                                <?php  
+                                    // $id = $_GET['id'];
+                                    $q = $db->query("SELECT avatar from users where id = ".$_GET['id']);
+                                    $img = $q->fetch();
+                                                             
+                                    if(!empty($img['avatar'])) {
+                                                                                                                                
+                                ?>
+                                <img class="rounded-circle float-start" src="assets/avatars/<?php echo $img['avatar'];?>" alt="avatar" width="200px" height="200px"  />
+                                    <?php } else { ?> 
+                                <img class="rounded-circle float-start" src="assets/avatars/defaults/default.png" alt="default" width="25%" >
+                                    <?php } ?>                                    
+                                                                    
+                            </div>
+                            <div class="col-xl-6 ">
+                                <?php if(!empty($_GET['id']) && $_GET['id'] !== get_session('user_id') ): ?> 
+                                                          
+                                    <?php if(relation_link_to_display($_GET['id']) == "cancel_relation_link") :?>
+                                        <p>Demande d'ami a déjà été envoyée. <a class="btn btn-danger btn-sm" href="delete_friend.php?id=<?=$_GET['id'] ?>">Annuler la demande</a> </p>
+                                    
+                                    <?php elseif(relation_link_to_display($_GET['id']) == "accept_reject_relation_link") :?>
+                                            Accepter ou refuser la demande d'ami.
+                                        <a class="btn btn-success btn-sm" href="accept_friend_request.php?id=<?=$_GET['id'] ?>">Accepter</a>
+                                        <a class="btn btn-danger btn-sm" href="delete_friend.php?id=<?=$_GET['id'] ?>">Refuser</a>
+                                    
+                                    <?php elseif(relation_link_to_display($_GET['id']) == "delete_relation_link") :?>
+                                        Vous êtes déjà ami.
+                                        <a class="btn btn-danger btn-sm float-end" href="delete_friend.php?id=<?=$_GET['id'] ?>">Retirer de ma liste d'amis.</a>
+
+                                    <?php  elseif(relation_link_to_display($_GET['id']) == "add_relation_link") : ?>
+                                        <a href="add_friend.php?id=<?=$_GET['id'] ?>" class="btn btn-success btn-sm float-end ">
+                                        <i class="fa fa-plus"></i> Ajouter comme ami</a>
+                                        
+                                        <?php endif; ?>
+                                        
+                                    <?php endif; ?>                                                                   
+                                
+
+                            </div>
                         </div>
+                        
 
                     
                         
@@ -89,12 +119,20 @@
                                  <br> <br>
                             </div>
 
-                        </div>
-                       
-                    </div>
-                </div>    
+                            
 
-            </div>
+                        </div>
+                                               
+                    </div>
+                    
+                </div> <br>  
+                <div class="card shadow profile">
+                                <div class="card-header text-white bg-success mb-3 shadow ">
+                                     <h5 class="lead">cela pourrait vous intéresser</h5>
+                                </div>                            
+                </div> 
+
+            </div>            
 
             <div class="col-md-6">
                 <?php if(!empty($_GET['id']) && $_GET['id'] === get_session('user_id')) :?>
@@ -106,8 +144,8 @@
                             <div class="form-group">
                                 <form action="micropost.php" method="post" data-parsley-validate>
                                     <br> <br>
-                                    <textarea name="content" id="content" cols="20" row="40" placeholder="Entrez votre status"
-                                        class="form-control" required="required"></textarea><br>
+                                    <textarea name="content" id="content" cols="20" rows="5" placeholder="Entrez votre status"
+                                        class="form-control" required="required" data-parsley-maxlength="250"></textarea><br>
 
                                     <input type="submit" class="btn btn-success btn-sm float-end" value="Publier" name="publish" >  <br> <br>
                                 </form>
@@ -116,26 +154,31 @@
                         </div>
 
                 </div>
-                <?php endif ?>
-
-                <div class="card card-body  bg-dark text-white messagepost">                
-                                
-
-                    <div class="card card-text bg-dark shadow">
+                <?php endif ;?>
+                
+                <?php if(count($microposts) !=0): ?>   
+                    <?php foreach($microposts as $micropost): ?> 
                         
-                        <div class="card-group text-white bg-secondary shadow col-md-12">
-                            <?php if(!empty($img['avatar'])) {
-                                                                                                                                        
-                            ?>
-                            <img class="rounded-circle" src="assets/avatars/<?php echo $img['avatar'];?>" alt="avatar" width="40px" height="40px"  />
-                                <?php } else { ?> 
-                            <img class="rounded-circle" src="assets/avatars/defaults/default.png" alt="default" width="40px" height="40px" >
-                                <?php } ?>
-                                <p><?=e($user->pseudo)?> le <?=e($user->created_at)?></p>
-                        </div> <br>
-                            <p>Blabla</p>
+                 
+                        <?php include('partials/_micropost.php'); ?>
+                    
+                    <?php endforeach ;?>
+                <?php else:  ?>
+
+                    <div class="card card-body  bg-dark text-white messagepost">
+
+                        <div class="card card-text bg-dark shadow">
+
+                            <div class="card-group text-white shadow col-md-12">
+                                <p>Encore rien de posté pour le moment...</p>
+                            </div>    
+
+                        </div>
                     </div>
-                </div>
+                    
+                <?php endif;?>
+
+                
             </div>              
 
         </div>

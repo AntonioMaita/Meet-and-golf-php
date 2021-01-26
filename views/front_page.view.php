@@ -1,42 +1,61 @@
 <?php $title = "Page du mur"; ?>
 <?php include('partials/_header.php'); ?>
 
-<div class="main-content">
+<div class="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <form action="" method="post">
+                        <label class="card-body bg-secondary text-white question"for="post">Quoi de neuf <?=e($user->pseudo)?> ?</label> <br> <br>
+                        <textarea name="post" id="post" cols="30" rows="5" placeholder="Entrez votre sujet"
+                            class="form-control publishPost" data-parsley-maxlength="150"></textarea><br>
 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <form action="" method="post">
-                    <label class="card-body bg-dark text-white question"for="post">Quoi de neuf <?=e($user->pseudo)?> ?</label> <br> <br>
-                    <textarea name="post" id="post" cols="20" row="40" placeholder="Entrez votre sujet"
-                        class="form-control"></textarea><br>
-
-                        <input type="submit" class="btn btn-success col-md-6" value="Publier" name="postmessage" >  <br> <br>
-                </form>
+                            <input type="submit" class="btn btn-success btn-xl float-end" value="Publier" name="postmessage" >  <br> <br>
+                    </form>
+                </div>                
+                                            
             </div>  
-            
-                                        
-        </div>   
 
-    </div>
-    <div class="row">
-        <div class="card-header text-white bg-success shadow fildactualite">
-            <h6 class="lead card-text">Fil d'actualité</h6>
         </div>
-        <div class="card card-body  bg-dark text-white messagepost">
-                
-                    <?php foreach($users as $user) : ?>                
-
-                <div class="card card-text bg-dark shadow">
-                    <p><?php echo $user->post?> </p>
-                    <div class="card-group text-white bg-success shadow col-md-4">
-                        <p> Publié par &nbsp;<a class="text-white" href="profile.php?id=<?=$user->users_id?>"><?=e($user->pseudo)?> </a>&nbsp; le <?=$user->date?></p>
-                    </div> <br>
+        <div class="row">
+            <div class="col-md-offset-3">
+                <div class="card card-header text-white bg-success shadow fildactualite">
+                    <h5 class="lead card-text">Fil d'actualité</h5>
                 </div>
-                
-                <?php endforeach ?>
-                           
-        </div>       
+                <div class="card card-body  bg-dark text-dark messagepost">
+                    <?php if (count($users) != 0) :?>
+                            <?php foreach($users as $user) : ?>                
+
+                                <div class="card card-text shadow">
+                                    <div class="card-group text-dark shadow ">  
+                                    <?php
+                                    if(!empty($user->avatar)) {
+                                                                                                                                            
+                                        ?>
+                                        <a class="publishName" href="profile.php?id=<?=$user->users_id?>"><img class="rounded-circle img-thumbnail" src="assets/avatars/<?php echo $user->avatar;?>" alt="avatar" width="40px" height="40px"/></a><br><br>
+                                            <?php } else { ?> 
+                                                <a class="publishName" href="profile.php?id=<?=$user->users_id?>"><img class="rounded-circle" src="assets/avatars/defaults/default.png" alt="default" width="40px" height="40px"></a>
+                                            <?php } ?>  
+                                        <p><a class="text-dark publishName" href="profile.php?id=<?=$user->users_id?>"><?=e($user->pseudo)?></a> a publié</p>
+                                    </div>
+                                
+                                    <p><i class="fa fa-clock-o"> <span class="timeago" title="<?= $user->date ?>"><?= $user->date ?></span></i></p> <br>
+                                    
+                                    <p ><?php echo nl2br(replace_links(e($user->post)))?></p> <br> 
+                                                                                                
+                                
+                                </div> <br>                
+                            <?php endforeach;?>
+                    <?php else : ?>
+                    <div class="text-white shadow">
+                        <p>pas de message pour le moment...</p>
+                    </div>
+                    <?php endif; ?>  
+                                
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>

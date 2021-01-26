@@ -18,7 +18,7 @@
   }
   
 
-  body{
+  body, html{
       
       background-image: url(../img/1358598.jpg);
       background-repeat:no-repeat;
@@ -27,6 +27,7 @@
       -o-background-size: cover;
       background-size:cover;
        overflow: auto;
+       height : 100%;
       
   }
 
@@ -113,7 +114,35 @@ textarea.parsley-error {
 
 
 .row {
-  text-align: center;
+  
   margin: 10px;
     
 }
+
+.publishName {
+  text-decoration: none;
+}
+.microposts {
+  word-break: break-all;
+  -moz-word-break: break-all;
+  -ms-word-break: break-all;
+}
+
+.publishPost{
+  word-break: break-all;
+  -moz-word-break: break-all;
+  -ms-word-break: break-all;
+}
+
+.card-footer {
+  margin-top: 245px;
+}
+
+.not_seen{
+   background-color: #f2f2f2;
+   }
+
+   a:link 
+   { 
+    text-decoration:none; 
+   } 

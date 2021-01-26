@@ -1,10 +1,9 @@
 <?php 
 session_start();
 
-
+require("includes/init.php");  
 include('filters/auth_filter.php');
-require('config/database.php');
-require('includes/functions.php');
+
 
 if(isset($_POST['publish'])){
     if(!empty($_POST['content'])){
@@ -17,6 +16,8 @@ if(isset($_POST['publish'])){
         ]);
 
         set_flash('Votre status a été mis à jour!');
+    } else {
+        set_flash('Aucun message pour le moment');
     }
 }
 redirect('profile.php?id='.get_session('user_id'));

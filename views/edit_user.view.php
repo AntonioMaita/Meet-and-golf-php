@@ -16,7 +16,7 @@
 
                         <div class="card shadow completeprofile">
                             <div class="card-header text-white bg-success mb-3 shadow">
-                                <h3 class="card-title">Completer le profil</h3>
+                                <h3 class="card-title">Compléter le profil</h3>
                             </div>
                             <div class="card-body shadow">
 
@@ -35,17 +35,16 @@
                                     if(!empty($img['avatar'])) {
                                                                                                                                    
                                 ?>
-                                <img class="rounded-circle img-thumbnail" src="assets/avatars/<?php echo $img['avatar'];?>" alt="avatar" width="150px" height="150px"  />  <input  class="custom-file-input" id="file" type="file" name="file" required/><br>
+                                <img class="rounded-circle img-thumbnail" src="assets/avatars/<?php echo $img['avatar'];?>" alt="avatar" width="150px" height="150px"/> <br>
                                     <?php } else { ?> 
                                 <img class="rounded-circle" src="assets/avatars/defaults/default.png" alt="default" width="25%" >
                                     <?php } ?>
-                                <input id="file" type="file" name="file" required/><br><br>
+                                <input id="file" type="file" name="file" class="form-control" required/><br>
                                                               
                             </div>
                            
                                 
-                            <button class="btn btn-success" type="submit" name="avatar">Valider</button><br> <br>
-                            
+                            <button class="btn btn-success" type="submit" name="avatar">Valider</button><br> <br>                      
                             
                                                        
 
@@ -83,7 +82,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="adress">Adresse</label>
+                                                <label for="adress">Adresse<span class="text-danger">*</span></label>
                                                 <input type="text" name="adress" id="adress" class="form-control"
                                                 value="<?=get_input('adress')  ?: e($user->adress)?>">
                                             </div>

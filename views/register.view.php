@@ -4,7 +4,7 @@
 <div class="main-content">
     <main class="container">
 
-        <h1 class="lead shadow p-3 col-md-6 bg-secondary text-white">Devenez dés à présent membre ! </h1>
+        <h1 class="card lead shadow p-3 col-md-6 bg-secondary text-white">Devenez dés à présent membre ! </h1>
         
         <?php include('partials/_error.php'); ?>
 
