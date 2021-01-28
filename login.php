@@ -36,7 +36,7 @@ include('filters/guest_filter.php');
                     
                 }
 
-                redirect_intent_or('profile.php?id='.$user->id);
+                redirect_intent_or('front_page.php?id='.$user->id);
                 
             } else {
                 set_flash('Combinaison Identifiant/Password incorrecte', 'danger');

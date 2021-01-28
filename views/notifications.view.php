@@ -10,7 +10,7 @@
 
             <?php foreach($notifications as $notification): ?>
             <li class="list-group-item
-                <?= $notification->seen == '0' ? 'not_seen' : '' ?>"
+                <?= $notification->seen == '0' ? 'bg-secondary' : '' ?>"
             >
             <?php require("partials/notifications/{$notification->name}.php"); ?>
             </li>

@@ -20,4 +20,6 @@ if(isset($_POST['publish'])){
         set_flash('Aucun message pour le moment');
     }
 }
+
+
 redirect('profile.php?id='.get_session('user_id'));

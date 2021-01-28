@@ -2,7 +2,6 @@
 <?php include('partials/_header.php'); ?>
 
 
-
 <div class="main-content">
     <div class="container">
 
@@ -66,7 +65,7 @@
                         <div class="row">
                             <div class="col-sm-6 shadow">
                                 <strong><?=e($user->name) ?></strong> <br>
-                                <a href="mailto:<?= e($user->email)?>"><?= e($user->email)?></a>
+                                <a class="btn btn-success btn-sm" href="mailto:<?= e($user->email)?>"><?= e($user->email)?></a>
                             </div>
                             
                             <div class="col-sm-6 shadow">
@@ -74,7 +73,7 @@
                                 <?= 
                                    e($user->club) ? '<i class="fas fa-golf-ball"></i>&nbsp;'.e($user->club) : '';
                                 ?> <br>
-                                <a href="https://google.com/maps?q=<?= e($user->club)?>" target="_blank">Voir sur Google Maps </a>
+                                <a class="btn btn-sm" href="https://google.com/maps?q=<?= e($user->club)?>" target="_blank">Voir sur Google Maps </a>
                                 
                                  <br> <br>
                             </div> <br> <br>
@@ -85,7 +84,7 @@
                                     e($user->adress) && e($user->city) &&  e($user->country) ? '<i class="fas fa-map-marker-alt"></i>&nbsp;'.e($user->adress). ' - '.e($user->city) . ' - ' .e($user->country) : '';
                                 ?>
                                 <br>
-                                <a href="https://google.com/maps?q=<?= e($user->adress). ' '.e($user->city) . ' ' .e($user->country)?>" target="_blank">Voir sur Google Maps </a>
+                                <a class="btn btn-sm" href="https://google.com/maps?q=<?= e($user->adress). ' '.e($user->city) . ' ' .e($user->country)?>" target="_blank">Voir sur Google Maps </a>
                                 <br> <br>    
                             </div>                    
                             

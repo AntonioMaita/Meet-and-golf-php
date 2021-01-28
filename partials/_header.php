@@ -7,6 +7,7 @@
     <meta name="author" content="Antonio Maita">
     <link rel="shortcut icon" href="assets/favicon/favicon.ico">
     
+    
     <title>
 
         <?= isset($title) 
@@ -25,6 +26,9 @@
     
     <!-- Custom styles for this template -->
   <link rel="stylesheet" href="assets/css/main.css">
+  
+
+  
     
   </head>
   <body >

@@ -113,7 +113,7 @@ if(!function_exists('relation_link_to_display')){
 if(!function_exists('replace_links')){
 
     function replace_links($texte) {
-        $regex_url= "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\:[0-9]+)?(\/\S*)?/";
+        $regex_url= "/(http|https|ftp|ftps|www)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\:[0-9]+)?(\/\S*)?/";
 
        return preg_replace($regex_url, "<a href=\"$0\" target=\"\_blank\">$0</a>", $texte);
 
@@ -297,7 +297,7 @@ if(!function_exists('find_user_by_id')){
 
         global $db;
 
-        $q = $db->prepare('SELECT id, name, pseudo, email, sex, adress, city, country, club, bio, created_at FROM users WHERE id = ?');
+        $q = $db->prepare('SELECT id, name, pseudo, email, sex, adress, city, country, club, bio, created_at, avatar FROM users WHERE id = ?');
         $q->execute([$id]);
 
         $data = current($q->fetchAll(PDO::FETCH_OBJ));
