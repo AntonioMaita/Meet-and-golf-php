@@ -13,18 +13,18 @@
           <span class="navbar-toggler-icon"></span>
         </button>
 
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
         <ul class="nav navbar-nav col-4">
           <li><a class="nav-link  <?= set_active('list_users')?>" href="list_users.php">Liste des utilisateurs</a></li>
         
         </ul>
 
       
-        <ul class="nav navbar-nav collapse navbar-collapse justify-content-end">          
+        <ul class="nav navbar-nav">       
           
           <?php if(is_logged_in() ):  ?>
             
-            <li class="nav-item dropdown logoAvatar">
+            <li class="nav-item dropdown  logoAvatar">
               <a class="nav-link dropdown" data-bs-toggle="dropdown"  id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 
                 <?php 
@@ -35,9 +35,9 @@
                   if(!empty($img['avatar'])) {                                                                                                                                    
                 ?>
                   
-                    <img class="avatar rounded float-end" src="assets/avatars/<?php echo $img['avatar'];?>" alt="avatar" width="50px" height="50px"/> 
+                    <img class="avatar rounded justify-content-end" src="assets/avatars/<?php echo $img['avatar'];?>" alt="avatar" width="50px" height="50px"/> 
                   <?php } else { ?> 
-                    <img class="rounded-circle rounded float-end" src="assets/avatars/defaults/default.png" alt="default" width="40px" height="40px"/>
+                    <img class="rounded-circle rounded justify-content-end" src="assets/avatars/defaults/default.png" alt="default" width="40px" height="40px"/>
                   <?php } ?>
               </a>
 
@@ -81,7 +81,7 @@
 
         <form class="d-flex">
           
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <input class="form-control me-2 " type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
       </div>

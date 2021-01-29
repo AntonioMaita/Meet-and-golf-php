@@ -87,7 +87,7 @@
                 require("views/notifications.view.php");
             } else {    
                 set_flash('Aucune notification disponible pour le moment...');
-                redirect('index.php');
+                redirect('front_page.php');
 }
 
  // Après avoir récupéré les notifications de l'utilisateur connecté,

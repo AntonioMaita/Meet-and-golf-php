@@ -25,7 +25,7 @@
   
 
 
-
+    //requete Post
     if(isset($_POST['postmessage'])) {
 
        
@@ -55,6 +55,7 @@
         clear_input_data();
     }
 
+    
     if(!empty($_GET['id'])){
 
         
@@ -94,6 +95,8 @@
 
     }
 
+
+    //Requete MicroPost
     if(!empty($_GET['id'])){
         //recup info user db utilisant id
         $user= find_user_by_id($_GET['id']);
@@ -105,8 +108,8 @@
 
         } else {
             $q = $db->prepare("SELECT U.id user_id, U.pseudo, U.email, U.avatar,
-                                M.id m_id, M.content, M.created_at
-                                FROM users U, microposts M, friends_relationships F  
+                                M.id m_id, M.content, M.created_at, M.like_count
+                                FROM users U, microposts M, friends_relationships F 
                                 WHERE M.user_id = U.id 
 
                                 AND
@@ -122,6 +125,7 @@
                                 END
 
                                 AND F.status > 0
+                               
                                 ORDER BY M.created_at DESC
                                 ");
             $q->execute([

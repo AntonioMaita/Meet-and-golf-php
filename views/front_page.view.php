@@ -29,7 +29,7 @@
                                
                 <div class="card-body  bg-dark text-dark messagepost">
                                
-                <?php if (count($users) != 0 || count($microposts)) :?>
+                <?php if (count($users) != 0 || count($microposts) !=0) :?>
                         <?php foreach($users as $user) : ?>
                                 
                                 <div class="card card-text shadow">
@@ -58,8 +58,19 @@
                                                          
                                    
                                    <p> <?php echo nl2br(replace_links(e($user->post))); ?> <p> <br> 
-                                                                                              
-                                
+                                    <hr class="text-dark">                                                      
+                                    <p class="text-dark">
+                                    <i class="fas fa-thumbs-up text-primary"> </i> 
+                                        
+                                        <?php if($user->like_count == 0) : ?>
+                                        <?php  echo '';?>
+                                        <?php else : ?>
+                                            <?=$user->like_count?>
+                                        <?php endif; ?>
+                                        <br>
+                                        <a class ="btn" href="like_post.php?id=<?= $user->id ?>"><i class="far fa-thumbs-up "> </i> J'aime</a>
+
+                                    </p>
                                 </div> <br>
                         <?php endforeach;?>                                                     
                     
@@ -94,8 +105,19 @@
                                     <p><i class="fa fa-clock-o"> <span class="timeago" title="<?= $micropost->created_at ?>"><?= $micropost->created_at ?></span></i></p> <br>
                                                          
                                    
-                                    <p> <?php echo nl2br(replace_links(e($micropost->content))); ?> <p> <br> 
-                                                                                              
+                                    <p> <?php echo nl2br(replace_links(e($micropost->content))); ?> <p> 
+                                            <hr class="text-dark">
+                                    <p class="text-dark">
+                                    <i class="fas fa-thumbs-up text-primary"> </i>                                        
+                                        <?php if($micropost->like_count == 0) : ?>
+                                        <?php  echo '';?>
+                                        <?php else : ?>
+                                            <?=$micropost->like_count?>
+                                        <?php endif; ?>
+                                        <br>
+                                        <a class ="btn" href="like_post.php?id=<?= $micropost->id ?>"><i class="far fa-thumbs-up "> </i> J'aime</a>
+
+                                    </p>                                                     
                                 
                                 </div> <br> 
 

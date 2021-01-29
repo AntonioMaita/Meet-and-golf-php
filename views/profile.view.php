@@ -11,8 +11,11 @@
                 
                 <div class="card shadow profile">
                     <div class="card-header text-white bg-success mb-3 shadow ">
+                        
                         <h3 class="card-title">Profil de <?=e($user->pseudo)?> 
+                        <a class=" text-dark <?= set_active('edit_user')?>" href="edit_user.php?id=<?=get_session('user_id')?>"><i class="fas fa-user-edit"></i> </a>
                         <p class=" card-text float-end">(<?=friends_count($_GET['id'])?> ami<?=friends_count($_GET['id']) <= 1 ? '' : 's'?>)</p> </h3>
+                        
                     </div>
                     <div class="card-body shadow">
                         <div class="row">

@@ -29,6 +29,20 @@
         <p><i class="fa fa-clock-o text-dark"> <span class="timeago" title="<?= $micropost->created_at ?>"><?= $micropost->created_at ?></span></i></p> <br>
 
         <p class="text-dark"><?= nl2br(replace_links(e($micropost->content))) ?></p>
+        <hr class="text-dark">        
+        <p class="text-dark ">
+            <i class="fas fa-thumbs-up text-primary"> </i>                                                  
+            <?php if($micropost->like_count == 0) : ?>
+            <?php  echo '';?>
+            <?php else : ?>
+                <?=$micropost->like_count?>
+            <?php endif; ?>
+            <br> 
+            <a class ="btn" href="like_post.php?id=<?= $micropost->id ?>"><i class="far fa-thumbs-up "> </i> J'aime</a>
+
+        </p>
+        
+        
 
 
     </div>
