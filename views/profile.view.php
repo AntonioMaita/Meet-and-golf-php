@@ -152,6 +152,7 @@
                                     <input type="submit" class="btn btn-success btn-sm float-end" value="Publier" name="publish" >  <br> <br>
                                 </form>
                             </div>
+                            
 
                         </div>
 
@@ -162,7 +163,10 @@
                     <?php foreach($microposts as $micropost): ?> 
                         
                  
-                        <?php include('partials/_micropost.php'); ?>
+                        <?php include('partials/_micropost.php'); ?> <br>
+                        
+                        
+                        
                     
                     <?php endforeach ;?>
                 <?php else:  ?>
@@ -179,6 +183,7 @@
                     </div>
                     
                 <?php endif;?>
+                
 
                 
             </div>              

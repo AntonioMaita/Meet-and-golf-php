@@ -13,6 +13,7 @@
 
                             <input type="submit" class="btn btn-success btn-xl float-end" value="Publier" name="postmessage" >  <br> <br>
                     </form>
+                     
                 </div>                
                                             
             </div>  
@@ -26,13 +27,15 @@
                     <h5 class="lead card-text">Fil d'actualité</h5>
                 </div>
                         <!-- POST       -->
+
+            <?php if (count($users) != 0 || count($microposts) !=0) :?>
+                      
                                
-                <div class="card-body  bg-dark text-dark messagepost">
-                               
-                <?php if (count($users) != 0 || count($microposts) !=0) :?>
-                        <?php foreach($users as $user) : ?>
+                <div class="card-body  bg-dark text-dark messagepost" >
+                <?php foreach($users as $user) : ?>  
+                
                                 
-                                <div class="card card-text shadow">
+                                <div class="card card-text shadow" id="post<?=$user->p_id?>">
                                     <div class="card-group text-dark shadow "> 
                                     
                                     <?php
@@ -48,7 +51,7 @@
                                                                                 
                                        <?php if(get_session('user_id') == ($user->users_id) ): ?>
                                         <a  onclick="return confirm('Voulez-vous vraiment supprimer cette publication ?')" 
-                                            class="btn btn-sm tooltip-test" href="delete_post.php?id=<?= $user->id ?>"> 
+                                            class="btn btn-sm tooltip-test" href="delete_post.php?id=<?= $user->p_id ?>"> 
                                             <i class="fa fa-trash "></i> Supprimer 
                                         </a>
                                         <?php endif; ?>
@@ -68,9 +71,12 @@
                                             <?=$user->like_count?>
                                         <?php endif; ?>
                                         <br>
-                                        <a class ="btn" href="like_post.php?id=<?= $user->id ?>"><i class="far fa-thumbs-up "> </i> J'aime</a>
-
-                                    </p>
+                                        <?php if (user_has_already_liked_the_post($user->p_id)): ?>
+                                        <a class ="btn fas fa-thumbs-up  text-primary likePost" data-action="unlikePost" id="unlikePost" href="unlike_post.php?id=<?= $user->p_id ?>">Je n'aime plus</a>
+                                        <?php else : ?>
+                                            <a class ="btn fas fa-thumbs-up likePost" data-action="likePost" id="likePost" href="like_post.php?id=<?= $user->p_id ?>">J'aime</a>
+                                        <?php endif ?>
+                                    </p> 
                                 </div> <br>
                         <?php endforeach;?>                                                     
                     
@@ -79,8 +85,9 @@
                                 <!-- Micropost -->
                                  
                                     <?php foreach($microposts as $micropost): ?>
-                                      
-                                <div class="card card-text shadow">
+
+                                                                          
+                                <div class="card card-text shadow" id="micropost<?=$micropost->m_id?>">
                                     <div class="card-group text-dark shadow "> 
                                     
                                     <?php
@@ -115,20 +122,23 @@
                                             <?=$micropost->like_count?>
                                         <?php endif; ?>
                                         <br>
-                                        <a class ="btn" href="like_post.php?id=<?= $micropost->id ?>"><i class="far fa-thumbs-up "> </i> J'aime</a>
-
+                                        <?php if (user_has_already_liked_the_micropost($micropost->m_id)): ?>
+                                            <a class ="btn fas fa-thumbs-up  text-primary likeMicropostPost" data-action="unlikeMicropostPost" id="unlikeMicropostPost" href="unlike_micropostPost.php?id=<?= $micropost->m_id ?>">Je n'aime plus</a>
+                                        <?php else : ?>
+                                            <a class ="btn fas fa-thumbs-up likeMicropostPost" data-action="likeMicropostPost" id="likeMicropostPost" href="like_micropostPost.php?id=<?= $micropost->m_id ?>">J'aime</a> 
+                                        <?php endif ;?>  
                                     </p>                                                     
                                 
-                                </div> <br> 
-
-
-                        <?php endforeach;?>                  
-                           
-                <?php else : ?>
+                                </div> <br>
+                            <?php endforeach;?>                
+                                      
+                                            
+            <?php else : ?>
                     <div class="text-white shadow">
                         <p>Aucun message pour le moment...</p>
                     </div>
-                <?php endif; ?> 
+                    
+            <?php endif; ?> 
                       
                      
                     

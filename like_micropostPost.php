@@ -26,14 +26,4 @@
     
         
     }
-    
-
-    
-   
-    redirect('profile.php?id='.get_session('user_id').'#micropost'.$_GET['id']);
-    
-        
-       
-        
-
-    
+    redirect('front_page.php?id='.get_session('user_id').'#micropost'.$_GET['id']); 

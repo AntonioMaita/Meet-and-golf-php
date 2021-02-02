@@ -12,6 +12,45 @@ if(!function_exists('e')){
     }
 }
 
+//user_has_already_liked_the_micropost
+if(!function_exists('user_has_already_liked_the_micropost')){
+
+    function user_has_already_liked_the_micropost($micropost_id) {
+        global $db;
+        
+        $q = $db->prepare('SELECT id FROM micropost_like
+                            WHERE user_id = :user_id AND micropost_id = :micropost_id');
+        $q->execute([
+        'user_id' => get_session('user_id'),
+        'micropost_id' => $micropost_id
+        
+        ]);
+
+        return (bool) $q->rowCount();        
+        
+    }
+}
+
+//user_has_already_liked_the_post
+if(!function_exists('user_has_already_liked_the_post')){
+
+    function user_has_already_liked_the_post($post_id) {
+        global $db;
+
+        $q = $db->prepare('SELECT id FROM post_like
+                            WHERE user_id = :user_id AND post_id = :post_id');
+        $q->execute([
+            'user_id' => get_session('user_id'),
+            'post_id' => $post_id
+
+        ]);
+
+        return (bool) $q->rowCount();       
+        
+        
+    }
+}
+
 
 //checks if a friend request has already be sent
 if(!function_exists('if_a_friend_request_has_already_be_sent')){

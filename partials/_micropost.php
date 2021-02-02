@@ -1,4 +1,4 @@
-<div class="card card-body  bg-dark text-white microposts">
+<div class="card card-body  bg-dark text-white microposts" id="micropost<?=$micropost->id?>">
 
 
     <div class="card card-text bg-light shadow">
@@ -38,9 +38,18 @@
                 <?=$micropost->like_count?>
             <?php endif; ?>
             <br> 
-            <a class ="btn" href="like_post.php?id=<?= $micropost->id ?>"><i class="far fa-thumbs-up "> </i> J'aime</a>
-
-        </p>
+            <?php if (user_has_already_liked_the_micropost($micropost->id)): ?>
+            <a class ="btn fas fa-thumbs-up  text-primary like" data-action="unlike" id="unlike"
+                href="unlike_micropost.php?id=<?= $micropost->id ?>">Je n'aime plus</a>
+             <?php else : ?>
+                <a class ="btn fas fa-thumbs-up like" data-action="like" id="like"
+                    href="like_micropost.php?id=<?= $micropost->id ?>">J'aime</a>
+                <?php endif ;?>
+                
+                
+                                 
+        </p> 
+        
         
         
 

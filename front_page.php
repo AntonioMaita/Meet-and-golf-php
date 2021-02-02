@@ -60,7 +60,7 @@
 
         
         
-        $q = $db->prepare("SELECT U.*, P.*, F.*
+        $q = $db->prepare("SELECT U.*, P.id as p_id, P.users_id, P.post, P.date, P.like_count, F.*
                             
                             FROM users U, friends_relationships F , post P
                             WHERE P.users_id = U.id 
@@ -99,7 +99,7 @@
     //Requete MicroPost
     if(!empty($_GET['id'])){
         //recup info user db utilisant id
-        $user= find_user_by_id($_GET['id']);
+        // $user= find_user_by_id($_GET['id']);
 
                 
 

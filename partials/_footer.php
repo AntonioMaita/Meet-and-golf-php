@@ -14,10 +14,41 @@
   <script type="text/javascript">
     window.ParsleyValidator.setLocale('fr');
     jQuery(document).ready(function() {
-      jQuery(".timeago").timeago();      
+      jQuery(".timeago").timeago(); 
+
+      // $("a.like").on("click", function(e) {
+      //   e.preventDefault();
+
+      //   var id = $(this).attr("id");
+      //   var url = 'ajax/micropost_like.php';
+      //   var action = $(this).data('action');
+      //   var micropostId = id.split("like")[1];
+        
+      //   $.ajax({
+      //     type : 'POST',
+      //     url: url,
+      //     data: {
+      //       micropost_id : micropostId,
+      //       action : action
+      //     },
+      //     success: function(response){
+              
+      //       if(action == 'like'){
+      //         $("#" + id).addClass("btn  text-primary  fas fa-thumbs-up ").data('action', 'unlike').html("Je n'aime plus");
+      //       }else {
+      //         $("#" + id).toggleClass("text-primary ").data('action', 'like').html("J'aime");
+      //       }
+      //     }
+      //   });
+
+        
+      // });
+
+      
     });
 
   </script>
+  
 
 </body>
 </html>
