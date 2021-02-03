@@ -1,5 +1,5 @@
 
-<form action="#" method="post">
+<form action="" method="post">
     
     <textarea name="comment" id="comment" cols="30" rows="1" placeholder="Commenter"
         class="publishcomment" data-parsley-maxlength="150"></textarea><br>

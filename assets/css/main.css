@@ -139,4 +139,8 @@ textarea.parsley-error {
   
 }
 
+ a.link {
+  text-decoration: none;
+}
+
   

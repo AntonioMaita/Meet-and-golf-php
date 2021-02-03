@@ -12,6 +12,243 @@ if(!function_exists('e')){
     }
 }
 
+//check_if_the_current_user_has_liked_the_micropost
+if(!function_exists('check_if_the_current_user_has_liked_the_micropost')){
+    function check_if_the_current_user_has_liked_the_micropost($micropost_id) {
+        global $db;
+        $q=$db->prepare('SELECT id FROM micropost_like WHERE user_id = ? 
+                        AND micropost_id = ?');
+        $q->execute([get_session('user_id'), $micropost_id]);
+
+        $count = $q->rowCount();
+        $q->closeCursor();
+        return (bool)$count;
+        
+        
+    }
+}
+//check_if_the_current_user_has_liked_the_POST
+if(!function_exists('check_if_the_current_user_has_liked_the_post')){
+    function check_if_the_current_user_has_liked_the_post($post_id) {
+        global $db;
+        $q=$db->prepare('SELECT id FROM post_like WHERE user_id = ? 
+                        AND post_id = ?');
+        $q->execute([get_session('user_id'), $post_id]);
+
+        $count = $q->rowCount();
+        $q->closeCursor();
+        return (bool)$count;
+        
+        
+    }
+}
+
+
+// System de Like
+    //return get like count of a given micropost
+    if(!function_exists('get_like_count')){
+
+        function get_like_count($micropost_id) {
+            global $db;
+            $q=$db->prepare('SELECT like_count FROM microposts WHERE id = ?');
+            $q->execute([$micropost_id]);
+
+            $data = $q->fetch(PDO::FETCH_OBJ);
+            return intval($data->like_count);
+
+            
+            
+        }
+    }
+
+   
+    //return  likers of a given micropost
+    if(!function_exists('get_likers')){
+
+        function get_likers($micropost_id) {
+            global $db;
+            $q=$db->prepare('SELECT users.id, users.pseudo FROM users
+                            LEFT JOIN micropost_like
+                            ON users.id = micropost_like.user_id
+                            WHERE micropost_id = ?
+                            ORDER BY micropost_like.id DESC
+                            LIMIT 3');
+            $q->execute([$micropost_id]);
+
+            return $q->fetchAll(PDO::FETCH_OBJ);       
+            
+            
+        }
+    }
+
+    
+
+    //display likers of a given micropost
+    if(!function_exists('get_likers_text')){
+
+        function get_likers_text($micropost_id) {
+            $like_count = get_like_count($micropost_id);
+            $likers = get_likers($micropost_id);
+            
+            
+            $output = '';
+
+            if($like_count > 0) {
+                $remaining_like_count = $like_count -3;
+                $itself_like = check_if_the_current_user_has_liked_the_micropost($micropost_id);      
+                
+                
+                foreach($likers as $liker){
+                    if(get_session('user_id') != $liker->id){
+                        $output .='<a class="link" href="profile.php?id='.$liker->id.'">'.$liker->pseudo.'</a>, ';
+                    }
+                }
+
+                $output = $itself_like ? 'Vous, ' . $output : $output;
+                
+                if(($like_count == 2 || $like_count == 3) && $output != ""){
+                    $output = trim($output, ', ');
+                    $arr = explode(',', $output);
+                    $lastItem = array_pop($arr);
+                    $output = implode(', ', $arr);
+                    $output .= ' et ' . $lastItem;
+                }
+                
+                $output = trim($output, ', ');
+
+                
+                switch($like_count){
+                    case 1:
+                        $output .=  $itself_like ? ' aimez cela.' 
+                                                : ' aime cela.';
+                    break;
+
+                    case 2:
+                    case 3:
+                        $output .= $itself_like ? ' aimez cela.' 
+                                                : ' aiment cela.';
+                    break;
+                    
+                    case 4:
+                        $output .= $itself_like ? 'et 1 autre personne aimez cela.' 
+                                                : ' et 1 autre personne aiment cela.';
+                    break;
+
+                    default:
+                    $output .= $itself_like ? ' et '. $remaining_like_count .' autres personnes aimez cela.' 
+                                             : ' et ' . $remaining_like_count .' autres personnes aiment cela.';
+                    break;
+
+                }
+                            
+            }
+            return $output;
+        }
+
+    }
+
+     //return get like count of a given POST
+     if(!function_exists('get_like_count_post')){
+
+        function get_like_count_post($post_id) {
+            global $db;
+            $q=$db->prepare('SELECT like_count FROM post WHERE id = ?');
+            $q->execute([$post_id]);
+
+            $data = $q->fetch(PDO::FETCH_OBJ);
+            return intval($data->like_count);
+
+            
+            
+        }
+    }
+
+    //return  likers of a given POST
+    if(!function_exists('get_likers_post')){
+
+        function get_likers_post($post_id) {
+            global $db;
+            $q=$db->prepare('SELECT users.id, users.pseudo FROM users
+                            LEFT JOIN post_like
+                            ON users.id = post_like.user_id
+                            WHERE post_id = ?
+                            ORDER BY post_like.id DESC
+                            LIMIT 3');
+            $q->execute([$post_id]);
+
+            return $q->fetchAll(PDO::FETCH_OBJ);       
+            
+            
+        }
+    }
+
+    //display likers of a given POST
+    if(!function_exists('get_likers_text_post')){
+
+        function get_likers_text_post($post_id) {
+            $like_count = get_like_count_post($post_id);
+            $likers_post = get_likers_post($post_id);
+            
+
+            $output = '';
+            if($like_count > 0) {
+                $remaining_like_count = $like_count -3; 
+                $itself_like_post =check_if_the_current_user_has_liked_the_post($post_id);     
+                
+                
+                foreach($likers_post as $liker_post){
+                    if(get_session('user_id') != $liker_post->id){
+                        $output .='<a class="link" href="front_page.php?id='.$liker_post->id.'">'.$liker_post->pseudo.'</a>, ';
+                    }
+                }
+
+                $output = $itself_like_post ? 'Vous, ' . $output : $output;
+
+                if(($like_count == 2 || $like_count == 3) && $output != ""){
+                    $output = trim($output, ', ');
+                    $arr = explode(',', $output);
+                    $lastItem = array_pop($arr);
+                    $output = implode(', ', $arr);
+                    $output .= ' et ' . $lastItem;
+                }
+
+                $output = trim($output, ', ');
+                
+                switch($like_count){
+                    case 1:
+                        $output .=  $itself_like_post ? ' aimez cela.' 
+                                                : ' aime cela.';
+                    break;
+
+                    case 2:
+
+                    
+                    case 3:
+                        $output .= $itself_like_post ? ' aimez cela.' 
+                                                : ' aiment cela.';
+                    break;
+                    
+                    case 4:
+                        $output .= $itself_like_post ? 'et 1 autre personne aimez cela.' 
+                                                : ' et 1 autre personne aiment cela.';
+                    break;
+
+                    default:
+                    $output .= $itself_like_post ? ' et '. $remaining_like_count .' autres personnes aimez cela.' 
+                                             : ' et ' . $remaining_like_count .' autres personnes aiment cela.';
+                    break;
+
+                }
+
+            }
+            return $output;
+            
+        }
+    }
+//fin Systeme de Like
+
+
+
 //user_has_already_liked_the_micropost
 if(!function_exists('user_has_already_liked_the_micropost')){
 

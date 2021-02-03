@@ -62,22 +62,21 @@
                                    
                                    <p> <?php echo nl2br(replace_links(e($user->post))); ?> <p> <br> 
                                     <hr class="text-dark">                                                      
-                                    <p class="text-dark">
-                                    <i class="fas fa-thumbs-up text-primary"> </i> 
+                                    <div class="text-dark">                                                                      
                                         
-                                        <?php if($user->like_count == 0) : ?>
-                                        <?php  echo '';?>
-                                        <?php else : ?>
-                                            <?=$user->like_count?>
-                                        <?php endif; ?>
-                                        <br>
+                                        <div class="text-dark" id="likers_<?=$user->p_id?>"> 
+                                            <i class="fas fa-thumbs-up text-primary"> </i>                
+                                            <?=get_likers_text_post($user->p_id)?>
+                                        </div>
+                                        
+                                        <br> 
                                         <?php if (user_has_already_liked_the_post($user->p_id)): ?>
-                                        <a class ="btn fas fa-thumbs-up  text-primary likePost" data-action="unlikePost" id="unlikePost" href="unlike_post.php?id=<?= $user->p_id ?>">Je n'aime plus</a>
+                                            <a class ="btn fas fa-thumbs-up  text-primary likePost float-start" data-action="unlikePost" id="unlikePost<?= $user->p_id ?>" href="unlike_post.php?id=<?= $user->p_id ?>">Je n'aime plus</a>
                                         <?php else : ?>
-                                            <a class ="btn fas fa-thumbs-up likePost" data-action="likePost" id="likePost" href="like_post.php?id=<?= $user->p_id ?>">J'aime</a>
+                                            <a class ="btn fas fa-thumbs-up likePost float-start" data-action="likePost" id="likePost<?= $user->p_id ?>" href="like_post.php?id=<?= $user->p_id ?>">J'aime</a>
                                         <?php endif ?>
-                                    </p> 
-                                </div> <br>
+                                    </div> <br>
+                                </div> <br> 
                         <?php endforeach;?>                                                     
                     
 
@@ -114,20 +113,20 @@
                                    
                                     <p> <?php echo nl2br(replace_links(e($micropost->content))); ?> <p> 
                                             <hr class="text-dark">
-                                    <p class="text-dark">
-                                    <i class="fas fa-thumbs-up text-primary"> </i>                                        
-                                        <?php if($micropost->like_count == 0) : ?>
-                                        <?php  echo '';?>
-                                        <?php else : ?>
-                                            <?=$micropost->like_count?>
-                                        <?php endif; ?>
+                                    <div class="text-dark">
+                                    
+                                        <div class="text-dark" id="likers_<?=$micropost->m_id?>"> 
+                                            <i class="fas fa-thumbs-up text-primary"> </i>                
+                                            <?=get_likers_text($micropost->m_id)?>
+                                        </div>
+                                    
                                         <br>
                                         <?php if (user_has_already_liked_the_micropost($micropost->m_id)): ?>
-                                            <a class ="btn fas fa-thumbs-up  text-primary likeMicropostPost" data-action="unlikeMicropostPost" id="unlikeMicropostPost" href="unlike_micropostPost.php?id=<?= $micropost->m_id ?>">Je n'aime plus</a>
+                                            <a class ="btn fas fa-thumbs-up  text-primary likeMicropostPost" data-action="unlikeMicropostPost" id="unlikeMicropostPost<?= $micropost->m_id ?>" href="unlike_micropostPost.php?id=<?= $micropost->m_id ?>">Je n'aime plus</a>
                                         <?php else : ?>
-                                            <a class ="btn fas fa-thumbs-up likeMicropostPost" data-action="likeMicropostPost" id="likeMicropostPost" href="like_micropostPost.php?id=<?= $micropost->m_id ?>">J'aime</a> 
+                                            <a class ="btn fas fa-thumbs-up likeMicropostPost" data-action="likeMicropostPost" id="likeMicropostPost<?= $micropost->m_id ?>" href="like_micropostPost.php?id=<?= $micropost->m_id ?>">J'aime</a> 
                                         <?php endif ;?>  
-                                    </p>                                                     
+                                    </div> <br>                                                    
                                 
                                 </div> <br>
                             <?php endforeach;?>                

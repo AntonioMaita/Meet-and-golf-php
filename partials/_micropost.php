@@ -30,25 +30,26 @@
 
         <p class="text-dark"><?= nl2br(replace_links(e($micropost->content))) ?></p>
         <hr class="text-dark">        
-        <p class="text-dark ">
-            <i class="fas fa-thumbs-up text-primary"> </i>                                                  
-            <?php if($micropost->like_count == 0) : ?>
-            <?php  echo '';?>
-            <?php else : ?>
-                <?=$micropost->like_count?>
-            <?php endif; ?>
+        <div class="text-dark ">         
+            
+           
+                <div class="text-dark" id="likers_<?=$micropost->id?>"> 
+                <i class="fas fa-thumbs-up text-primary"> </i>                
+            <?=get_likers_text($micropost->id)?>
+            </div>          
+            
             <br> 
             <?php if (user_has_already_liked_the_micropost($micropost->id)): ?>
-            <a class ="btn fas fa-thumbs-up  text-primary like" data-action="unlike" id="unlike"
+                <a class ="btn fas fa-thumbs-up  text-primary like float-start" data-action="unlike" id="unlike<?=$micropost->id?>"
                 href="unlike_micropost.php?id=<?= $micropost->id ?>">Je n'aime plus</a>
              <?php else : ?>
-                <a class ="btn fas fa-thumbs-up like" data-action="like" id="like"
+                <a class ="btn fas fa-thumbs-up like float-start" data-action="like" id="like<?=$micropost->id?>"
                     href="like_micropost.php?id=<?= $micropost->id ?>">J'aime</a>
-                <?php endif ;?>
+            <?php endif ;?>
                 
                 
                                  
-        </p> 
+        </div> <br>
         
         
         
