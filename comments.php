@@ -1,24 +1,31 @@
 
 <?php
+session_start();
 
-if(isset($_POST['comment'])){
-    if(!empty($_POST['postcomment'])){
+require("includes/init.php");  
+include('filters/auth_filter.php');
+
+if(isset($_POST['postcomment'])){
+    if(!empty($_POST['comment'])){
         extract($_POST);
-        $error=[];
+        
 
-        $q=$db->prepare('INSERT INTO comments (comment, user_id) VALUES (:comment, :user_id)');
+        $q=$db->prepare('INSERT INTO comments_micropost (comment, user_id, micropost_id) VALUES (:comment, :user_id, :micropost_id)');
         $q->execute([
             'comment'=> $comment,
-            'user_id'=> get_session('user_id')
+            'user_id'=> get_session('user_id'),
+            'micropost_id' => get_session('user_id')
         ]);
 
-        set_flash('Votre status a été mis à jour!');
+        set_flash('Commentaires mis à jour!');
     } else {
         clear_input_data();
     }
 }
 
 
-// redirect('profile.php?id='.get_session('user_id'));
-// include('views/comments.view.php');
+redirect('profile.php?id='.get_session('user_id'));
+
+
+
 ?>

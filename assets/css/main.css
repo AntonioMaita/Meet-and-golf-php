@@ -132,6 +132,7 @@ textarea.parsley-error {
   word-break: break-all;
   -moz-word-break: break-all;
   -ms-word-break: break-all;
+  outline: none;
 }
 
 .card-footer {
@@ -142,5 +143,31 @@ textarea.parsley-error {
  a.link {
   text-decoration: none;
 }
+
+.display-box{ 
+  
+  display : none;
+  color: black;
+  margin-top: 10px;
+  background-color:whitesmoke;
+  border-left : 1px solid black;
+  border-right : 1px solid black;
+  border-bottom : 1px solid black;
+  opacity : 90% ;
+}
+
+
+.display-box-user:hover{
+  color: white;
+  background-color:#088A4B;  
+  text-decoration: none;
+  
+}
+.link-display-box-user{
+  text-decoration: none;
+  color : black;
+  display : block;
+}
+
 
   

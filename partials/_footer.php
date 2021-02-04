@@ -11,6 +11,7 @@
   <script src="assets/js/jquery.livequery.min.js"></script>       
   <script src="libraries/parsley/parsley.min.js" ></script>
   <script src="libraries/parsley/i18n/fr.js" ></script>
+  <script src="assets/js/main.js"></script>
   <script type="text/javascript">
     window.ParsleyValidator.setLocale('fr');
     jQuery(document).ready(function() {
@@ -37,7 +38,7 @@
               if(action == 'like'){
                 $("#" + id).addClass("btn  text-primary  fas fa-thumbs-up ").data('action', 'unlike').html("Je n'aime plus");
               }else {
-                $("#" + id).toggleClass("text-primary ").data('action', 'like').html("J'aime");
+                $("#" + id).removeClass("text-primary").data('action', 'like').html("J'aime");
               }
             }
                   
@@ -64,7 +65,7 @@
               if(action == 'likePost'){
                 $("#" + id).addClass("btn  text-primary  fas fa-thumbs-up ").data('action', 'unlikePost').html("Je n'aime plus");
               }else {
-                $("#" + id).toggleClass("text-primary ").data('action', 'likePost').html("J'aime");
+                $("#" + id).removeClass("text-primary").data('action', 'likePost').html("J'aime");
               }
             }
                   
@@ -91,7 +92,7 @@
               if(action == 'likeMicropostPost'){
                 $("#" + id).addClass("btn  text-primary  fas fa-thumbs-up ").data('action', 'unlikeMicropostPost').html("Je n'aime plus");
               }else {
-                $("#" + id).toggleClass("text-primary ").data('action', 'likeMicropostPost').html("J'aime");
+                $("#" + id).removeClass("text-primary ").data('action', 'likeMicropostPost').html("J'aime");
               }
             }
                   

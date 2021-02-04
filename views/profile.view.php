@@ -150,25 +150,24 @@
                                         class="form-control" required="required" data-parsley-maxlength="250"></textarea><br>
 
                                     <input type="submit" class="btn btn-success btn-sm float-end" value="Publier" name="publish" >  <br> <br>
+                                
                                 </form>
+                                
                             </div>
                             
 
                         </div>
 
                 </div>
-                <?php endif ;?>
-                
+                <?php endif ;?>                
                 <?php if(count($microposts) !=0): ?>   
-                    <?php foreach($microposts as $micropost): ?> 
-                        
+                    <?php foreach($microposts as $micropost): ?>                     
                  
-                        <?php include('partials/_micropost.php'); ?> <br>
-                        
-                        
+                        <?php include('partials/_micropost.php'); ?> <br>                 
                         
                     
                     <?php endforeach ;?>
+                    
                 <?php else:  ?>
 
                     <div class="card card-body  bg-dark text-white messagepost">

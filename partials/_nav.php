@@ -81,10 +81,18 @@
 
         <form class="d-flex">
           
-          <input class="form-control me-2 " type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchbox">          
+          <!-- <button class="btn btn-success text-white" type="submit">Search</button> -->
+          <div class="spinner-border text-light" id="spin" role="status" style="display:none;">
+            <span class="visually-hidden">Loading...</span>
+          </div>
         </form>
+        
       </div>
+      
     </div>
   </nav>
+  <div class="display-box">           
+            
+  </div>
 </div>

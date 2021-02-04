@@ -104,7 +104,7 @@ if(!function_exists('check_if_the_current_user_has_liked_the_post')){
                     }
                 }
 
-                $output = $itself_like ? 'Vous, ' . $output : $output;
+                $output = $itself_like ? '<i class="fas fa-thumbs-up text-primary"> </i> Vous, ' . $output : $output;
                 
                 if(($like_count == 2 || $like_count == 3) && $output != ""){
                     $output = trim($output, ', ');
@@ -202,7 +202,7 @@ if(!function_exists('check_if_the_current_user_has_liked_the_post')){
                     }
                 }
 
-                $output = $itself_like_post ? 'Vous, ' . $output : $output;
+                $output = $itself_like_post ? '<i class="fas fa-thumbs-up text-primary"> </i> Vous, ' . $output : $output;
 
                 if(($like_count == 2 || $like_count == 3) && $output != ""){
                     $output = trim($output, ', ');
@@ -221,8 +221,7 @@ if(!function_exists('check_if_the_current_user_has_liked_the_post')){
                     break;
 
                     case 2:
-
-                    
+                                            
                     case 3:
                         $output .= $itself_like_post ? ' aimez cela.' 
                                                 : ' aiment cela.';

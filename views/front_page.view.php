@@ -8,7 +8,7 @@
                 <div class="form-group">
                     <form action="" method="post">
                         <label class="card-body bg-secondary text-white question"for="post">Quoi de neuf <?=e($user->pseudo)?> ?</label> <br> <br>
-                        <textarea name="post" id="post" cols="30" rows="5" placeholder="Entrez votre sujet"
+                        <textarea  name="post" id="post" cols="50" rows="5" placeholder="Entrez votre sujet"
                             class="form-control publishPost" data-parsley-maxlength="150"></textarea><br>
 
                             <input type="submit" class="btn btn-success btn-xl float-end" value="Publier" name="postmessage" >  <br> <br>
@@ -65,7 +65,7 @@
                                     <div class="text-dark">                                                                      
                                         
                                         <div class="text-dark" id="likers_<?=$user->p_id?>"> 
-                                            <i class="fas fa-thumbs-up text-primary"> </i>                
+                                            <!-- <i class="fas fa-thumbs-up text-primary"> </i>                 -->
                                             <?=get_likers_text_post($user->p_id)?>
                                         </div>
                                         
@@ -102,7 +102,7 @@
                                                                                 
                                        <?php if(get_session('user_id') == ($micropost->user_id) ): ?>
                                         <a  onclick="return confirm('Voulez-vous vraiment supprimer cette publication ?')" 
-                                            class="btn btn-sm tooltip-test" href="delete_micropost.php?id=<?= $micropost->m_id ?>"> 
+                                            class="btn btn-sm tooltip-test" href="delete_micropostPost.php?id=<?= $micropost->m_id ?>"> 
                                             <i class="fa fa-trash "></i> Supprimer 
                                         </a>
                                         <?php endif; ?>
@@ -116,15 +116,15 @@
                                     <div class="text-dark">
                                     
                                         <div class="text-dark" id="likers_<?=$micropost->m_id?>"> 
-                                            <i class="fas fa-thumbs-up text-primary"> </i>                
+                                            <!-- <i class="fas fa-thumbs-up text-primary"> </i>                 -->
                                             <?=get_likers_text($micropost->m_id)?>
                                         </div>
                                     
                                         <br>
                                         <?php if (user_has_already_liked_the_micropost($micropost->m_id)): ?>
-                                            <a class ="btn fas fa-thumbs-up  text-primary likeMicropostPost" data-action="unlikeMicropostPost" id="unlikeMicropostPost<?= $micropost->m_id ?>" href="unlike_micropostPost.php?id=<?= $micropost->m_id ?>">Je n'aime plus</a>
+                                            <a class ="btn  text-primary fas fa-thumbs-up likeMicropostPost" data-action="unlikeMicropostPost" id="unlikeMicropostPost<?= $micropost->m_id ?>" href="unlike_micropostPost.php?id=<?= $micropost->m_id ?>">Je n'aime plus</a>
                                         <?php else : ?>
-                                            <a class ="btn fas fa-thumbs-up likeMicropostPost" data-action="likeMicropostPost" id="likeMicropostPost<?= $micropost->m_id ?>" href="like_micropostPost.php?id=<?= $micropost->m_id ?>">J'aime</a> 
+                                            <a class ="btn likeMicropostPost fas fa-thumbs-up" data-action="likeMicropostPost" id="likeMicropostPost<?= $micropost->m_id ?>" href="like_micropostPost.php?id=<?= $micropost->m_id ?>">J'aime</a> 
                                         <?php endif ;?>  
                                     </div> <br>                                                    
                                 

@@ -33,7 +33,24 @@
 
     }
 
+    if(!empty($_GET['id'])){         
+
     
+        $q = $db->prepare('SELECT id, comment, created_at, user_id, micropost_id FROM comments_micropost
+                            WHERE user_id = :user_id AND micropost_id = :micropost_id
+                            ORDER BY created_at DESC');
+        $q->execute([
+            'user_id' => $_GET['id'],
+            'micropost_id'=> $_GET['id']            
+        ]);
+        $comments = $q->fetchAll(PDO::FETCH_OBJ);
+        
+    
+
+} else {
+    redirect('profile.php?id='.get_session('user_id'));
+
+}
 
         
     
