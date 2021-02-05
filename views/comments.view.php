@@ -1,5 +1,5 @@
 
-
+<?php if($comment->micropost_id == $micropost->id) : ?>
 <div class="card card-text bg-dark shadow" id="comment<?=$comment->id?>">
 
     <div class="card-group text-white shadow col-md-12">
@@ -11,14 +11,14 @@
         <?php } else { ?>
             <img class="rounded-circle" src="assets/avatars/defaults/default.png" alt="default" width="40px" height="40px">
         <?php } ?>
-        <p><a class="text-white publishName" href="profile.php?id=<?=$comment->user_id?>"><?=e($user->pseudo)?></a> a commenter</p> <br> 
+        <p><a class="text-white " href="profile.php?id=<?= $micropost->user_id ?>"><?=e($user->pseudo)?></a> a commenter</p> <br> 
         
         
        
-        <?php if(get_session('user_id') == ($comment->user_id) ): ?>
+        <?php if(get_session('user_id') == ($comment->c_user_id) ): ?>
             <a  onclick="return confirm('Voulez-vous vraiment supprimer cette publication ?')" 
-                class="btn btn-sm tooltip-test" href="delete_micropost.php?id=<?= $comment->id ?>"> 
-                <i class="fa fa-trash text-white"></i> Supprimer
+                class="btn btn-sm tooltip-test" href="delete_micro_comment.php?id=<?= $comment->c_id ?>"> 
+                <i class="fa fa-trash text-white"></i>
             </a>
         <?php endif;?>
         
@@ -26,10 +26,17 @@
 
     </div>
 
-    <p><i class="fa fa-clock-o text-white"> <span class="timeago" title="<?= $comment->created_at ?>"><?= $comment->created_at ?></span></i></p> <br>
-
-    <p class="text-white"><?= nl2br(replace_links(e($comment->comment))) ?></p>
+    <p><i class="fa fa-clock-o text-white"> <span class="timeago" title="<?= $comment->c_created_at ?>"><?= $comment->c_created_at ?></span></i></p> <br>
+    
+     <?php if($comments) :?>
+        
+        <p class="text-white"><?= nl2br(replace_links(e($comment->comment))) ?></p>
+        
+               
+    <?php endif ; ?>
     <hr class="text-white">  
    
      <br>
 </div>
+
+<?php endif; ?>

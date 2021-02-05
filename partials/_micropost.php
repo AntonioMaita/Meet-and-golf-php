@@ -52,22 +52,28 @@
         </div> <br>
                
     </div>
-    <form action="comments.php" method="post" data-parsley-validate>
+    
+    
+    <form action="comments.php?id=<?= $micropost->id ?>" method="post" data-parsley-validate>
+           
             <p>
                 <a class="btn btn-success" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                     Commentaires
                 </a>            
-            </p>            
+            </p>
+                       
             <div class="collapse" id="collapseExample">
-               
-                <textarea name="comment" id="comment" cols="30" rows="2" placeholder="Laissez un commentaire..."></textarea>
+            <textarea name="comment" id="comment" cols="30" rows="2" placeholder="Laissez un commentaire..."></textarea>
                 <input class="btn btn-success btn-sm" name="postcomment" type="submit" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                <?php foreach($comments as $comment): ?> 
-                <?php include('views/comments.view.php'); ?>
-                <?php endforeach ;?>      
+            <?php foreach($comments as $comment): ?>
+            <?php include('views/comments.view.php'); ?>                   
+            <?php endforeach ;?>
                 
-                
+                     
+              
+                   
             </div> 
         </form>
+        
 
 </div>

@@ -32,7 +32,7 @@
                       
                                
                 <div class="card-body  bg-dark text-dark messagepost" >
-                <?php foreach($users as $user) : ?>  
+                            <?php foreach($users as $user) : ?>  
                 
                                 
                                 <div class="card card-text shadow" id="post<?=$user->p_id?>">
@@ -77,7 +77,7 @@
                                         <?php endif ?>
                                     </div> <br>
                                 </div> <br> 
-                        <?php endforeach;?>                                                     
+                            <?php endforeach;?>                                                     
                     
 
 

@@ -163,10 +163,11 @@
                 <?php if(count($microposts) !=0): ?>   
                     <?php foreach($microposts as $micropost): ?>                     
                  
-                        <?php include('partials/_micropost.php'); ?> <br>                 
+                        <?php include('partials/_micropost.php'); ?> <br>                
                         
                     
                     <?php endforeach ;?>
+                    
                     
                 <?php else:  ?>
 

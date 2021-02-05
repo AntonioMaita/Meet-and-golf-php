@@ -26,9 +26,7 @@
 
 
     //requete Post
-    if(isset($_POST['postmessage'])) {
-
-       
+    if(isset($_POST['postmessage'])) {       
 
         if (not_empty(['post'])) {
 
@@ -56,9 +54,7 @@
     }
 
     
-    if(!empty($_GET['id'])){
-
-        
+    if(!empty($_GET['id'])){        
         
         $q = $db->prepare("SELECT U.*, P.id as p_id, P.users_id, P.post, P.date, P.like_count, F.*
                             
@@ -99,9 +95,7 @@
     //Requete MicroPost
     if(!empty($_GET['id'])){
         //recup info user db utilisant id
-        // $user= find_user_by_id($_GET['id']);
-
-                
+        // $user= find_user_by_id($_GET['id']);                
 
         if(!$user){
             redirect('index.php');
@@ -140,12 +134,6 @@
         redirect('front_page.php?id='.get_session('user_id'));
 
     }
-
-    
-   
-
-    
-    
     
     
     require ('views/front_page.view.php');

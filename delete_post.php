@@ -17,6 +17,7 @@
        
 
         if($user_id == get_session('user_id')){
+
             $q = $db->prepare('DELETE FROM post WHERE id = :id');
             $q->execute([
             'id' => $_GET['id']

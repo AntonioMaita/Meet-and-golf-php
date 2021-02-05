@@ -33,18 +33,21 @@
 
     }
 
-    if(!empty($_GET['id'])){         
+    if(isset($_GET['id']) && !empty($_GET['id'])){         
 
-    
-        $q = $db->prepare('SELECT id, comment, created_at, user_id, micropost_id FROM comments_micropost
-                            WHERE user_id = :user_id AND micropost_id = :micropost_id
-                            ORDER BY created_at DESC');
+       
+
+        $q = $db->prepare('SELECT C.id c_id , C.comment, C.micropost_id, C.user_id c_user_id, M.id m_id , C.created_at c_created_at FROM comments_micropost C , microposts M
+                            WHERE  C.micropost_id = M.id AND M.user_id = ?
+                            ORDER BY C.created_at DESC');
         $q->execute([
-            'user_id' => $_GET['id'],
-            'micropost_id'=> $_GET['id']            
+            $_GET['id']
         ]);
+                       
+       
         $comments = $q->fetchAll(PDO::FETCH_OBJ);
         
+       
     
 
 } else {
