@@ -312,6 +312,31 @@ if(!function_exists('if_a_friend_request_has_already_be_sent')){
 }
 
 
+//checks if the cxurrent user is friend with the second
+if(!function_exists('current_user_is_friend_with')){
+
+    function current_user_is_friend_with($second_user_id) {
+        
+        global $db;
+
+        $q = $db->prepare("SELECT status FROM friends_relationships 
+                            WHERE (user_id1 = :user_id1 AND user_id2 = :user_id2)
+                            OR (user_id1 = :user_id2 AND user_id2 = :user_id1 ) AND status = '1'");
+        $q->execute([
+            'user_id1' => get_session('user_id'),
+            'user_id2' => $second_user_id
+        ]);
+        
+
+        $count = $q->rowCount();
+        $q->closeCursor();
+
+        return (bool)$count;
+                
+    }
+}
+
+
 //friends count
 if(!function_exists('friends_count')){
 

@@ -1,6 +1,6 @@
 
 <?php if($comment->micropost_id == $micropost->id) : ?>
-<div class="card card-text bg-dark shadow" id="comment<?=$comment->id?>">
+<div class="card card-text bg-dark shadow" id="comment<?=$comment->c_id?>">
 
     <div class="card-group text-white shadow col-md-12">
     
@@ -11,7 +11,7 @@
         <?php } else { ?>
             <img class="rounded-circle" src="assets/avatars/defaults/default.png" alt="default" width="40px" height="40px">
         <?php } ?>
-        <p><a class="text-white " href="profile.php?id=<?= $micropost->user_id ?>"><?=e($user->pseudo)?></a> a commenter</p> <br> 
+        <p><a class="text-white " href="profile.php?id=<?= $comment->c_user_id ?>"><?=e($user->pseudo)?></a> a commenter</p> <br> 
         
         
        

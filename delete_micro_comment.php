@@ -16,15 +16,15 @@ session_start();
         $user_id = $data->user_id;
      }
 
-     $q = $db->prepare('SELECT micropost_id, id FROM comments_micropost 
-                            WHERE  id = ?
-                            ');
-        $q->execute([
-            $_GET['id']
-        ]);
+    //  $q = $db->prepare('SELECT micropost_id, id FROM comments_micropost 
+    //                         WHERE  id = ?
+    //                         ');
+    //     $q->execute([
+    //         $_GET['id']
+    //     ]);
                        
        
-        $comments = $q->fetchAll(PDO::FETCH_OBJ);
+    //     $comments = $q->fetchAll(PDO::FETCH_OBJ);
 
      
 
@@ -32,7 +32,7 @@ session_start();
             
             $q = $db->prepare('DELETE FROM comments_micropost WHERE id = :id');
             $q->execute([
-                'id' => $GET['id']
+                'id' => $_GET['id']
             ]);
         
 

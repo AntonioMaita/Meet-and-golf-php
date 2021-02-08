@@ -33,47 +33,44 @@
         <div class="text-dark ">         
             
            
-                <div class="text-dark" id="likers_<?=$micropost->id?>"> 
-                <!-- <i class="fas fa-thumbs-up text-primary"> </i>                 -->
-            <?=get_likers_text($micropost->id)?>
-            </div>          
-            
-            <br> 
-            <?php if (user_has_already_liked_the_micropost($micropost->id)): ?>
-                <a class ="btn fas fa-thumbs-up  text-primary like float-start" data-action="unlike" id="unlike<?=$micropost->id?>"
-                href="unlike_micropost.php?id=<?= $micropost->id ?>">Je n'aime plus</a>
-             <?php else : ?>
-                <a class ="btn fas fa-thumbs-up like float-start" data-action="like" id="like<?=$micropost->id?>"
-                    href="like_micropost.php?id=<?= $micropost->id ?>">J'aime</a>
-            <?php endif ;?>
+            <div class="text-dark" id="likers_<?=$micropost->id?>"> 
+                    <!-- <i class="fas fa-thumbs-up text-primary"> </i>                 -->
+                <?=get_likers_text($micropost->id)?>
+                </div>          
                 
-            
-                                 
-        </div> <br>
+                <br> 
+                <?php if (user_has_already_liked_the_micropost($micropost->id)): ?>
+                    <a class ="btn fas fa-thumbs-up  text-primary like float-start" data-action="unlike" id="unlike<?=$micropost->id?>"
+                    href="unlike_micropost.php?id=<?= $micropost->id ?>">Je n'aime plus</a>
+                <?php else : ?>
+                    <a class ="btn fas fa-thumbs-up like float-start" data-action="like" id="like<?=$micropost->id?>"
+                        href="like_micropost.php?id=<?= $micropost->id ?>">J'aime</a>
+                <?php endif ;?>
+                    
+                
+                                    
+            </div> <br>
                
     </div>
     
     
     <form action="comments.php?id=<?= $micropost->id ?>" method="post" data-parsley-validate>
-           
-            <p>
-                <a class="btn btn-success" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                    Commentaires
-                </a>            
-            </p>
-                       
-            <div class="collapse" id="collapseExample">
+      
+        <p>
+            <a class="btn btn-success" data-bs-toggle="collapse" href="#collapseExample " role="button" aria-expanded="false" aria-controls="collapseExample">
+                Commentaires
+            </a>            
+        </p>
+                  
+        <div class="collapse" id="collapseExample">
             <textarea name="comment" id="comment" cols="30" rows="2" placeholder="Laissez un commentaire..."></textarea>
-                <input class="btn btn-success btn-sm" name="postcomment" type="submit" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-            <?php foreach($comments as $comment): ?>
+            <input class="btn btn-success btn-sm" name="postcomment" type="submit" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+            <?php foreach($comments as $comment): ?> 
             <?php include('views/comments.view.php'); ?>                   
-            <?php endforeach ;?>
-                
-                     
-              
-                   
-            </div> 
-        </form>
+            <?php endforeach ;?>           
+        </div> 
+        
+    </form>
         
 
 </div>

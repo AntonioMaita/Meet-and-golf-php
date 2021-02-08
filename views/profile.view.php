@@ -128,6 +128,9 @@
                     </div>
                     
                 </div> <br>  
+                <div>
+                <a class="card" href="messagerie.php?id=<?=get_session('user_id')?>">Messagerie</a>         
+                </div>
                 <div class="card shadow profile">
                                 <div class="card-header text-white bg-success mb-3 shadow ">
                                      <h5 class="lead">cela pourrait vous intéresser</h5>
@@ -159,7 +162,9 @@
                         </div>
 
                 </div>
-                <?php endif ;?>                
+                <?php endif ;?>  
+
+                <?php  if (current_user_is_friend_with($_GET['id'])) : ?>              
                 <?php if(count($microposts) !=0): ?>   
                     <?php foreach($microposts as $micropost): ?>                     
                  
@@ -183,7 +188,7 @@
                     </div>
                     
                 <?php endif;?>
-                
+                <?php endif;?>
 
                 
             </div>              
