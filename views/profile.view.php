@@ -14,7 +14,9 @@
                         
                         <h3 class="card-title">Profil de <?=e($user->pseudo)?> 
                         <a class=" text-dark <?= set_active('edit_user')?>" href="edit_user.php?id=<?=get_session('user_id')?>"><i class="fas fa-user-edit"></i> </a>
-                        <p class=" card-text float-end">(<?=friends_count($_GET['id'])?> ami<?=friends_count($_GET['id']) <= 1 ? '' : 's'?>)</p> </h3>
+                        <a class ="text-white" href="list_contact.php?id=<?=$_GET['id']?>"><p class=" card-text float-end">(<?=friends_count($_GET['id'])?> ami<?=friends_count($_GET['id']) <= 1 ? '' : 's'?>)</p></a>
+                        
+                        </h3>
                         
                     </div>
                     <div class="card-body shadow">
@@ -129,7 +131,7 @@
                     
                 </div> <br>  
                 <div>
-                <a class="card" href="messagerie.php?id=<?=get_session('user_id')?>">Messagerie</a>         
+                <a class="card nav-link" href="messagerie.php?id=<?=get_session('user_id')?>">Messagerie</a>         
                 </div>
                 <div class="card shadow profile">
                                 <div class="card-header text-white bg-success mb-3 shadow ">

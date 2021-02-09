@@ -17,6 +17,8 @@
     jQuery(document).ready(function() {
       jQuery(".timeago").timeago(); 
 
+
+//System de like
       $("a.like").on("click", function(e) {
         e.preventDefault();
 
@@ -101,6 +103,84 @@
 
 
     });
+
+    //message
+    $(document).ready(function(){
+      $('#envoyer').on("submit", function(e){
+        e.preventDefault();
+        
+        var id;
+        var message;
+        
+        id = <?=json_encode($_GET['id'], JSON_UNESCAPED_UNICODE);?>;
+        message = document.getElementById('message').value;
+        
+        document.getElementById('message').value = "";
+        if(id > 0 && message != ""){
+          $.ajax({
+            url : 'ajax/envoyer_message.php',
+            method: 'POST',
+            dataType : 'html',
+            data : {id: id, message: message},
+            
+            success : function(data){
+              $('#afficher-message').append(data);
+            },
+            error : function(e, xhr, s){
+              let error = e.responseJSON;
+              if(e.status == 403 && typeof error !== 'undefined'){
+                alert('Erreur 403');
+              }else if(e.status == 403) {
+                alert('Erreur 403');
+              } else if(e.status == 401){
+                alert('Erreur 401');
+              }else {
+                alert('Erreur Ajax');
+              }
+            }
+          });
+        }
+      });
+
+      var chargement_message_auto = 0;
+      chargement_message_auto = clearInterval(chargement_message_auto);
+
+      chargement_message_auto = setInterval(chargerMessageAuto, 2000) ;
+
+      
+      function chargerMessageAuto(){
+        var id = <?=json_encode($_GET['id'], JSON_UNESCAPED_UNICODE);?>;
+        if(id >0){
+          $.ajax({
+            url : 'ajax/charger_message.php',
+            method: 'POST',
+            dataType : 'html',
+            data : {id: id},
+            
+            success : function(data){
+              if(data.trim() != ""){
+                $('#charger-message').append(data);
+              }
+              
+            },
+            error : function(e, xhr, s){
+              let error = e.responseJSON;
+              if(e.status == 403 && typeof error !== 'undefined'){
+                alert('Erreur 403');
+              }else if(e.status == 403) {
+                alert('Erreur 403');
+              } else if(e.status == 401){
+                alert('Erreur 401');
+              }else {
+                alert('Erreur Ajax');
+              }
+            }
+          });
+        }
+        
+      }
+    });
+
 
   </script>
   
