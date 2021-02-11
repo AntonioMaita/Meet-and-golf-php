@@ -170,4 +170,73 @@ textarea.parsley-error {
 }
 
 
+.message {
+  opacity : 90% ;
+}
+
+
+/* messagerie */
+.corps-des-messages{
+  background-color: white ;
+  padding : 10px;
+  margin-top : 20px;
+  border-radius: 10px;
+  box-shadow : 2px 2px 4px rgba(33, 33, 33, .4);
+  height: 450px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  position: relative;
+  word-break: break-word;
+  opacity : 90%;
+}
+.btn-voir-plus-message{
+  background: #229953;
+  border-radius: 20px;
+  color: white;
+  border:0;
+  outline : none !important;
+  margin: 10px auto;
+  display: flex;
+  transition: all .5s ease;
+  box-shadow: 2px 2px 4px rgba(33, 33, 33, .4);
+
+}
+.btn-voir-plus-message:hover{
+transition: all .5s ease;
+box-shadow: 2px 2px 4px rgba(33, 33, 33, .1);
+}
+.btn-masquer-voir-plus-message{
+  display: none;
+}
+
+.message-droit{
+  background: white;
+  position:relative;
+  color:black;
+  max-width:80%;
+  width: auto;
+  margin: 10px 0;
+  padding: 10px;
+  box-shadow: 3px 3px 6px rgba(0,0,0, .125);
+  border-radius: 10px 10px 10px 0;
+  float:left;
+  clear:both;
+  word-break: break-all;
+}
+
+.message-gauche{
+  background:#229953 ;
+  color:white;
+  position:relative;
+  max-width:80%;
+  width: auto;
+  margin: 10px 0;
+  padding: 10px;
+  box-shadow: 3px 3px 6px rgba(0,0,0, .125);
+  border-radius: 10px 10px 0 10px;
+  float:right;
+  clear:both;
+  word-break: break-all;
+}
+
   

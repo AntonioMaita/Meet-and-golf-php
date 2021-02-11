@@ -84,7 +84,7 @@
                 
                 $pagination .= '</ul></nav>';
 
-                require("views/notifications.view.php");
+                
             } else {    
                 set_flash('Aucune notification disponible pour le moment...');
                 redirect('front_page.php');
@@ -98,4 +98,4 @@
 
 
  // Nous affichons ensuite le contenu de notre fichier notifications.view.php
- 
+ require("views/notifications.view.php");

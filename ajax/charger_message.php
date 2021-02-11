@@ -27,9 +27,6 @@ if(!isset($verifier_relation->id)){
     exit;
 }
 
-
-
-
 $q=$db->prepare("SELECT * FROM messagerie
                 WHERE id_to = ? AND id_from = ? AND lu = ?");
 $q->execute([$_SESSION['user_id'], $get_id, 1]);
@@ -45,8 +42,10 @@ $q->execute([0, $_SESSION['user_id'], $get_id]); ?>
 
 
    <?php foreach($afficher_message as $am){ ?>
-              
-    <p class="card  bg-secondary"><?=nl2br(replace_links(e($am->message)))?></p>
+
+               
+    <div class="message-droit"><?=nl2br(replace_links($am->message))?></div>
+        
 <?php } ?>
 
 

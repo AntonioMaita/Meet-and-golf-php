@@ -18,7 +18,7 @@
       jQuery(".timeago").timeago(); 
 
 
-//System de like
+      //System de like
       $("a.like").on("click", function(e) {
         e.preventDefault();
 
@@ -105,7 +105,11 @@
     });
 
     //message
+    
     $(document).ready(function(){
+      if((document.getElementById('msg'))){
+      document.getElementById('msg').scrollTop = document.getElementById('msg').scrollHeight;
+      }
       $('#envoyer').on("submit", function(e){
         e.preventDefault();
         
@@ -113,9 +117,10 @@
         var message;
         
         id = <?=json_encode($_GET['id'], JSON_UNESCAPED_UNICODE);?>;
-        message = document.getElementById('message').value;
+        message = document.getElementById('messagerie').value;
         
-        document.getElementById('message').value = "";
+        document.getElementById('messagerie').value = "";
+        
         if(id > 0 && message != ""){
           $.ajax({
             url : 'ajax/envoyer_message.php',
@@ -124,8 +129,13 @@
             data : {id: id, message: message},
             
             success : function(data){
+              
               $('#afficher-message').append(data);
+              
+              document.getElementById('msg').scrollTop = document.getElementById('msg').scrollHeight;
+              // document.location.reload();
             },
+            
             error : function(e, xhr, s){
               let error = e.responseJSON;
               if(e.status == 403 && typeof error !== 'undefined'){
@@ -141,11 +151,13 @@
           });
         }
       });
-
+      
       var chargement_message_auto = 0;
+
       chargement_message_auto = clearInterval(chargement_message_auto);
 
-      chargement_message_auto = setInterval(chargerMessageAuto, 2000) ;
+      chargement_message_auto = setInterval(chargerMessageAuto, 1000) ;
+      
 
       
       function chargerMessageAuto(){
@@ -159,7 +171,11 @@
             
             success : function(data){
               if(data.trim() != ""){
-                $('#charger-message').append(data);
+                $('#afficher-message').append(data);
+               
+                document.getElementById('msg').scrollTop = document.getElementById('msg').scrollHeight;
+                // document.location.reload();
+               
               }
               
             },
@@ -179,11 +195,59 @@
         }
         
       }
-    });
+      <?php 
+      $nombre_total_message = 25;
 
+      $q=$db->prepare("SELECT COUNT(id) nbMessage FROM messagerie 
+                      WHERE ((id_from, id_to) = (:id1, :id2) OR (id_from, id_to) = (:id2, :id1))                               
+                      ");
+      $q->execute(['id1'=> $_SESSION['user_id'], 'id2' => $_GET['id']]);
+      
+      $nombre_message = $q->fetch();
+        if($nombre_message['nbMessage'] > $nombre_total_message) {
+        ?>
+          var req = 0;
+        
+          $('#voir-plus').click(function(){
+            var id ;
+            var el ;
+            req += <?=$nombre_total_message?>;
+            id = <?=json_encode($_GET['id'], JSON_UNESCAPED_UNICODE);?>;
+            $.ajax({
+              url : 'ajax/voir_plus_messages.php',
+              method: 'POST',
+              dataType : 'html',
+              data : {limit: req, id: id},
+              
+              success : function(data){
+                
+                  $(data).hide().appendTo('#voir-plus-message').fadeIn(2000);
+                  document.getElementById('voir-plus-message').removeAttribute('id') ;
+                              
+              },
+              error : function(e, xhr, s){
+                let error = e.responseJSON;
+                if(e.status == 403 && typeof error !== 'undefined'){
+                  alert('Erreur 403');
+                }else if(e.status == 403) {
+                  alert('Erreur 403');
+                } else if(e.status == 401){
+                  alert('Erreur 401');
+                }else {
+                  alert('Erreur Ajax');
+                }
+              }
+            });
+            
+          });
 
-  </script>
-  
+        <?php 
+          }
+      
+      ?>
+    }); 
+
+  </script>  
 
 </body>
 </html>

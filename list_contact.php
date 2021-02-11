@@ -15,7 +15,7 @@ $q=$db->prepare('SELECT u.pseudo , u.id, u.avatar, m.message, m.date_message, m.
                     GROUP BY IF(m.id_from = :id, m.id_to, m.id_from), f.id ) as DM
                 LEFT JOIN messagerie m ON m.id = DM.max_id
                 LEFT JOIN users u ON u.id = DM.id_utilisateur
-                ORDER BY m.date_message DESC
+                ORDER BY u.pseudo 
                 ');
 $q->execute([ 'id'=> $_GET['id']]);
 

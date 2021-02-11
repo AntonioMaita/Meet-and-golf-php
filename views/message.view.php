@@ -2,54 +2,65 @@
 <?php include('partials/_header.php'); ?>
 
 
-<div class="row col-md-6">
-    <div class="card bg-dark shadow">
 
-        <div class="card-header bg-dark mb3">      
-            
-            <p class="card bg-dark text-white">Messages avec <?=$user->pseudo?></p> 
-            <?php foreach($afficher_message as $am ) : ?> 
-            <div class="card bg-dark text-dark">
-                <div  class="card bg-dark text-white"> 
+<div class="container">
+    <div class="row">           
+        <div class="col-sm-12">
+            <div class="corps-des-messages" id="msg">
+                <?php 
+                    if($nombre_message['nbMessage'] > $nombre_total_message) {
+                ?>
+                <button id="voir-plus" class="btn-voir-plus-message">Voir plus</button>
+                <?php 
+                    }
+                ?>
+                <div id="voir-plus-message"></div>
+                <?php foreach($afficher_message as $am ) {               
                     
-                    <?php if(!empty($am)) :?>
-                    <?php if($am->id_from == get_session('user_id')) :?>
-                        
-                            <p class="card text-dark">Vous avez écrit :</p>
-                            <p id ="afficher-message" class="card text-dark "><?=nl2br(replace_links(e($am->message)))?></p>
-                    <?php else : ?>   
+                    if($am->id_from == $_SESSION['user_id']) {?>
+                    
+                        <div class="message-gauche">                                
+                            <?=nl2br(replace_links($am->message));
                             
-                        <p class="card  bg-secondary"><?=$user->pseudo?> a écrit :</p>           
-                        <p id ="charger-message"class="card  bg-secondary"><?=nl2br(replace_links(e($am->message)))?></p>
-                    <?php endif; ?> 
+                            ?>                                 
+                            
+                        </div >                         
+                    <?php }else { ?>   
+                        <div class="message-droit">                                            
+                            <?=nl2br(replace_links($am->message));
+                            
+                            ?> 
+                                                   
+                        </div> 
+                        <?php } 
+                            }
+                        ?>                      
+                <div id ="afficher-message"></div>  
+                                          
 
-                        <p class="card bg-dark ">Envoyé le <?= date('d-m-Y à H:i:s',strtotime($am->date_message))?> </p> 
-                        <hr>
-                    <?php  else :?>
+            </div>      
 
-                        <p>Pas de message</p>
-
-                    <?php endif; ?> 
-            
-                </div> <br>
-                <?php endforeach; ?>
+        </div>
         
-            
-                <div  class=" card bg-dark col-md-12">
-                <?php if(isset($er_message)) {
-                    echo $er_message ;
-                } ?>
-                        <form id="envoyer" method="post">                
-                            <textarea  id="message" name="message"  rows="5" placeholder="Votre message..."
-                                class=" col-md-12" data-parsley-maxlength="150"></textarea><br>
-                                <input type="submit"  class="btn btn-success btn-xl float-start" value="Envoyer" name="envoyer" > 
-            
-                        </form>
-                </div>
-            </div>
-              
-        </div> 
+        <div class="col-sm-12">
+            <?php if(isset($er_message)){
+                echo $er_message;
+            } ?>
+            <div style="border: 1px solid #cccccc; border-radius: 5px; position: relative; padding-top: 5px; background: white">
+            <form id="envoyer" method="post"> <br>               
+                <textarea  id="messagerie" name="messagerie" rows = "5" placeholder="Votre message..."
+                    data-parsley-maxlength="150"
+                   style="border: none;overflow: none; resize: none; width: 90%; outline: none; padding: 0 5px"></textarea><br>
+                <input type="submit"  class="btn btn-success btn-xl float-start" value="Envoyer" name="envoyer" > 
+                
+            </form>
+            </div><br> 
+        </div>          
+
+         
     </div>
+
+
 </div>
 
 <?php  include('partials/_footer.php');?>

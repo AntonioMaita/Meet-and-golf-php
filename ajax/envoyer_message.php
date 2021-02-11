@@ -27,12 +27,18 @@ $verifier_relation = $q->fetch(PDO::FETCH_OBJ);
 if(!isset($verifier_relation->id)){
     exit;
 }
+$date_message = date("Y-m-d H:i:s");
 
-$q=$db->prepare("INSERT INTO messagerie (id_from, id_to, message, lu)
-                VALUES(?,?,?,?)
+$q=$db->prepare("INSERT INTO messagerie (id_from, id_to, message, date_message, lu)
+                VALUES(?,?,?,?,?)
                 ");
-$q->execute([ $_SESSION['user_id'], $get_id, $get_message, 1]);
+$q->execute([ $_SESSION['user_id'], $get_id, $get_message, $date_message, 1]);
 
 ?>
 
-<p class="card text-dark "><?=nl2br(replace_links(e($get_message)))?> </p>
+    
+    <div class="message-gauche"><?=nl2br(replace_links($get_message))?></div>
+    
+   
+
+

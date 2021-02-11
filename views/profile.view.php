@@ -130,13 +130,13 @@
                     </div>
                     
                 </div> <br>  
-                <div>
-                <a class="card nav-link" href="messagerie.php?id=<?=get_session('user_id')?>">Messagerie</a>         
-                </div>
+                
                 <div class="card shadow profile">
-                                <div class="card-header text-white bg-success mb-3 shadow ">
-                                     <h5 class="lead">cela pourrait vous intéresser</h5>
-                                </div>                            
+                    <div class="card-header text-white bg-success mb-3 shadow ">
+                            <h5 class="lead">cela pourrait vous intéresser</h5>                                     
+                    </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium quis recusandae molestiae esse! Molestias eius mollitia porro consectetur quo consequuntur quisquam blanditiis, quod iure, temporibus odio ea autem earum id!</p> 
+
                 </div> 
 
             </div>            
@@ -170,11 +170,11 @@
                 <?php if(count($microposts) !=0): ?>   
                     <?php foreach($microposts as $micropost): ?>                     
                  
-                        <?php include('partials/_micropost.php'); ?> <br>                
+                        <?php include('partials/_micropost.php'); ?> <br>               
                         
                     
                     <?php endforeach ;?>
-                    
+                                       
                     
                 <?php else:  ?>
 

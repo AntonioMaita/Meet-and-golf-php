@@ -2,7 +2,7 @@
 
     if(isset($_SESSION['user_id']) && isset($_SESSION['user_pseudo'])) {
 
-        header('Location: index.php');
+        header('Location:front_page.php');
             exit();
     }
 

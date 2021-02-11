@@ -54,23 +54,42 @@
     </div>
     
     
-    <form action="comments.php?id=<?= $micropost->id ?>" method="post" data-parsley-validate>
+    
       
-        <p>
-            <a class="btn btn-success" data-bs-toggle="collapse" href="#collapseExample " role="button" aria-expanded="false" aria-controls="collapseExample">
-                Commentaires
-            </a>            
-        </p>
-                  
-        <div class="collapse" id="collapseExample">
-            <textarea name="comment" id="comment" cols="30" rows="2" placeholder="Laissez un commentaire..."></textarea>
-            <input class="btn btn-success btn-sm" name="postcomment" type="submit" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
-            <?php foreach($comments as $comment): ?> 
-            <?php include('views/comments.view.php'); ?>                   
-            <?php endforeach ;?>           
-        </div> 
+    <button type="button" class="btn btn-success btn-xs" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        Commentaires
+    </button>
+</form>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-dark" id="staticBackdropLabel">Commentaires</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <?php include('views/comments.view.php'); ?>
+      <div id="commentaires">
+            <form action="comments.php?id=<?= $micropost->id ?>" method="post" data-parsley-validate>
+                <textarea name="comment" id="comment" cols="30" rows="2" placeholder="Laissez un commentaire..."></textarea>
+                <input class="btn btn-success btn-sm" name="postcomment" type="submit" >
+            </form>
+        </div>    
+      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         
-    </form>
+      </div>
+    </div>
+  </div>
+</div>
+     
+         
+        
+    
         
 
 </div>

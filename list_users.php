@@ -7,8 +7,6 @@ require("includes/init.php");
 header("Cache-Control: no-cache, must-revalidate");
 
 
-
-
 $req = $db->query("SELECT id FROM users WHERE active='1'");
 
 $nbre_total_users = $req->rowCount();

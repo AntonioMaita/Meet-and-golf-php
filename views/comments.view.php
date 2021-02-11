@@ -1,5 +1,8 @@
-
+<?php foreach($comments as $comment): ?> 
 <?php if($comment->micropost_id == $micropost->id) : ?>
+    
+                             
+            
 <div class="card card-text bg-dark shadow" id="comment<?=$comment->c_id?>">
 
     <div class="card-group text-white shadow col-md-12">
@@ -28,9 +31,9 @@
 
     <p><i class="fa fa-clock-o text-white"> <span class="timeago" title="<?= $comment->c_created_at ?>"><?= $comment->c_created_at ?></span></i></p> <br>
     
-     <?php if($comments) :?>
+     <?php if(!empty($comments)) :?>
         
-        <p class="text-white"><?= nl2br(replace_links(e($comment->comment))) ?></p>
+        <p class="text-white"><?= nl2br(replace_links($comment->comment)) ?></p>
         
                
     <?php endif ; ?>
@@ -40,3 +43,4 @@
 </div>
 
 <?php endif; ?>
+<?php endforeach ;?>
