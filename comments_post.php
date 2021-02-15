@@ -1,12 +1,11 @@
-
 <?php
 session_start();
 
 require("includes/init.php");  
 include('filters/auth_filter.php');
 
-if(isset($_POST['postcomment'])){
-    if(!empty($_POST['comment'])){
+if(isset($_POST['postcomment_micropost'])){
+    if(!empty($_POST['comment_micropost'])){
         extract($_POST);
                      
         
@@ -31,7 +30,7 @@ if(isset($_POST['postcomment'])){
 }
 
 
-redirect('profile.php?id='.$_GET['user_id']);
+redirect('front_page.php');
 
 
 ?>

@@ -53,16 +53,15 @@
                
     </div>
     
-    
-    
-      
-    <button type="button" class="btn btn-success btn-xs" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-        Commentaires
+    <button type="button" data-id="<?= $micropost->id ?>" class="btn btn-success btn-xs" data-bs-toggle="modal" data-bs-target="#staticBackdrop<?= $micropost->id ?>">
+        
+    <?=$micropost->comments_count?> Commentaire<?=$micropost->comments_count <= 1 ? '' : 's'?>
+          
     </button>
-</form>
 
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="false">
+<div class="modal fade" id="staticBackdrop<?= $micropost->id ?>" data-bs-backdrop="static" data-bs-keyboard="false" 
+    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" data-refresh="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -70,10 +69,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+      
       <?php include('views/comments.view.php'); ?>
+      
       <div id="commentaires">
             <form action="comments.php?id=<?= $micropost->id ?>" method="post" data-parsley-validate>
-                <textarea name="comment" id="comment" cols="30" rows="2" placeholder="Laissez un commentaire..."></textarea>
+                <textarea name="comment" id="comment<?=$micropost->id?>" cols="30" rows="2" placeholder="Laissez un commentaire..."></textarea>
                 <input class="btn btn-success btn-sm" name="postcomment" type="submit" >
             </form>
         </div>    

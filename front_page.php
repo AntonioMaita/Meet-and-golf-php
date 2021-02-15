@@ -102,7 +102,7 @@
 
         } else {
             $q = $db->prepare("SELECT U.id user_id, U.pseudo, U.email, U.avatar,
-                                M.id m_id, M.content, M.created_at, M.like_count
+                                M.id m_id, M.content, M.created_at, M.like_count, M.comments_count
                                 FROM users U, microposts M, friends_relationships F 
                                 WHERE M.user_id = U.id 
 
@@ -128,8 +128,22 @@
             ]);
             $microposts = $q->fetchAll(PDO::FETCH_OBJ);
             
+            
         }
 
+        if(isset($_GET['id']) && !empty($_GET['id'])){         
+
+       
+
+            $q = $db->query('SELECT  U.id u_id, U.pseudo u_pseudo, C.id c_id , C.comment, C.micropost_id , C.user_id c_user_id, M.id m_id , C.created_at c_created_at 
+                                FROM comments_micropost C , microposts M, users U
+                                WHERE  C.micropost_id = M.id AND C.user_id = U.id
+                                ');
+            
+                           
+           
+            $comments_post = $q->fetchAll(PDO::FETCH_OBJ);
+        }
     } else {
         redirect('front_page.php?id='.get_session('user_id'));
 

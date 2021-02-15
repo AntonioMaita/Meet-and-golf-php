@@ -129,7 +129,45 @@
                                     </div> <br>                                                    
                                 
                                 </div> <br>
-                            <?php endforeach;?>                
+                                
+                                <button type="button" data-id="<?= $micropost->m_id ?>" class="btn btn-success btn-xs" data-bs-toggle="modal" data-bs-target="#staticBackdrop_micropost<?= $micropost->m_id ?>">
+        
+                                    <?=$micropost->comments_count?> Commentaire<?=$micropost->comments_count <= 1 ? '' : 's'?>
+          
+                                </button> <br>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="staticBackdrop_micropost<?= $micropost->m_id ?>" data-bs-backdrop="static" data-bs-keyboard="false" 
+                                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" data-refresh="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-dark" id="staticBackdropLabel">Commentaires</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div> <br>
+                                    <div class="modal-body">
+                                    
+                                        <?php include('views/comments_post.view.php'); ?>
+                                    
+                                        <div id="commentaires">
+                                            <form action="comments_post.php?id=<?= $micropost->m_id ?>" method="post" data-parsley-validate>
+                                                <textarea name="comment_micropost" id="comment_micropost<?=$micropost->m_id?>" cols="30" rows="2" placeholder="Laissez un commentaire..."></textarea>
+                                                <input class="btn btn-success btn-sm" name="postcomment_micropost" type="submit" >
+                                            </form>
+                                        </div>    
+                                    
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <br>
+
+                                
+                                <?php endforeach;?>
+                                                                                                         
                                       
                                             
             <?php else : ?>
@@ -142,12 +180,13 @@
                      
                     
                                 
-                </div>
+            </div>
                 
             </div>
         </div>
        
     </div>
+    
 
 </div>
 

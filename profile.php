@@ -18,7 +18,7 @@
             redirect('index.php');
 
         } else {
-            $q = $db->prepare('SELECT id, content, created_at, user_id, like_count FROM microposts
+            $q = $db->prepare('SELECT id, content, created_at, user_id, like_count, comments_count FROM microposts
                                 WHERE user_id = :user_id
                                 ORDER BY created_at DESC');
             $q->execute([
@@ -37,23 +37,23 @@
 
        
 
-        $q = $db->prepare('SELECT C.id c_id , C.comment, C.micropost_id, C.user_id c_user_id, M.id m_id , C.created_at c_created_at FROM comments_micropost C , microposts M
-                            WHERE  C.micropost_id = M.id AND M.user_id = ?
-                            ORDER BY C.created_at DESC');
-        $q->execute([
-            $_GET['id']
-        ]);
+        $q = $db->query('SELECT  U.id u_id, U.pseudo u_pseudo, C.id c_id , C.comment, C.micropost_id , C.user_id c_user_id, M.id m_id , C.created_at c_created_at 
+                            FROM comments_micropost C , microposts M, users U
+                            WHERE  C.micropost_id = M.id AND C.user_id = U.id
+                            ');
+        
                        
        
-        $comments = $q->fetchAll(PDO::FETCH_OBJ);
+        $comments = $q->fetchAll(PDO::FETCH_OBJ);    
         
-       
+      
+               
     
 
-} else {
+    } else {
     redirect('profile.php?id='.get_session('user_id'));
 
-}
+    }
 
         
     

@@ -16,30 +16,41 @@ session_start();
         $user_id = $data->user_id;
      }
 
-    //  $q = $db->prepare('SELECT micropost_id, id FROM comments_micropost 
-    //                         WHERE  id = ?
-    //                         ');
-    //     $q->execute([
-    //         $_GET['id']
-    //     ]);
+     $q = $db->prepare('SELECT micropost_id, id, user_id FROM comments_micropost 
+                            WHERE  id = ?
+                            ');
+        $q->execute([
+            $_GET['id']
+        ]);
                        
        
-    //     $comments = $q->fetchAll(PDO::FETCH_OBJ);
+        $comments = $q->fetchAll(PDO::FETCH_OBJ);
 
-     
+       
 
-    if($user_id == get_session('user_id')){
+     foreach($comments as $comment){
+
+    if($comment->user_id == get_session('user_id')){
             
+            
+          
+           $q = $db->prepare('UPDATE microposts SET comments_count = comments_count -1
+                                WHERE id = ?');
+            $q->execute([$comment->micropost_id]);
+           
             $q = $db->prepare('DELETE FROM comments_micropost WHERE id = :id');
-            $q->execute([
+                $q->execute([
                 'id' => $_GET['id']
-            ]);
-        
+            ]);           
+                  
 
             set_flash("Votre commentaire a été supprimée avec succès!");
+    }    
         
+    } 
         
-    }  
+    
+ 
 
         
     
