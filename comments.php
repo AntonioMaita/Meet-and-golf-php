@@ -31,7 +31,7 @@ if(isset($_POST['postcomment'])){
 }
 
 
-redirect('profile.php?id='.$_GET['user_id']);
+redirect('profile.php?id='.$_GET['user_id']).'#post'.$_GET['id'];
 
 
 ?>

@@ -37,9 +37,10 @@
 
        
 
-        $q = $db->query('SELECT  U.id u_id, U.pseudo u_pseudo, C.id c_id , C.comment, C.micropost_id , C.user_id c_user_id, M.id m_id , C.created_at c_created_at 
+        $q = $db->query('SELECT  U.id u_id, U.pseudo u_pseudo, U.avatar u_avatar, C.id c_id , C.comment, C.micropost_id , C.user_id c_user_id, M.id m_id , C.created_at c_created_at 
                             FROM comments_micropost C , microposts M, users U
                             WHERE  C.micropost_id = M.id AND C.user_id = U.id
+                            ORDER BY c_created_at ASC
                             ');
         
                        

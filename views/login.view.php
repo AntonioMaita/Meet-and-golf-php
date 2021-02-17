@@ -31,18 +31,18 @@
                 <label class="control-label" for="remember_me">
                     <input type="checkbox" name="remember_me" id="remember_me">
                     Garder ma session active
-                </label>
+                </label> <br>
+                <a href="mot_de_passe.php">Mot de passe oublié ?</a>
                 
             </div> <br>           
 
             <input type="submit" class="btn btn-success" value="Connexion" name="login">
 
         </form>
-       
+        
     
 
     </main><!-- /.container -->
 
 </div>
 
-<?php include('partials/_footer.php'); ?>

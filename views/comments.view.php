@@ -7,10 +7,10 @@
 
     <div class="card-group text-white shadow col-md-12">
     
-        <?php if (!empty($user->avatar)) {
+        <?php if (!empty($comment->u_avatar)) {
 
         ?>
-            <img class="rounded-circle" src="assets/avatars/<?=$user->avatar; ?>" alt="avatar" width="40px" height="40px" />
+            <img class="rounded-circle" src="assets/avatars/<?=$comment->u_avatar; ?>" alt="avatar" width="40px" height="40px" />
         <?php } else { ?>
             <img class="rounded-circle" src="assets/avatars/defaults/default.png" alt="default" width="40px" height="40px">
         <?php } ?>

@@ -1,5 +1,5 @@
   
-  <div class ="card-footer bg-dark text-white">Meet and golf &copy 2021</div>
+  <div class ="card-footer bg-dark text-white ">Meet and golf &copy 2021</div>
   
   <!-- JavaScript Bundle with Popper -->
 
@@ -115,6 +115,7 @@
         
         var id;
         var message;
+        if(isset($_GET['id'])){
         
         id = <?=json_encode($_GET['id'], JSON_UNESCAPED_UNICODE);?>;
         message = document.getElementById('messagerie').value;
@@ -150,6 +151,7 @@
             }
           });
         }
+      }
       });
       
       var chargement_message_auto = 0;
@@ -161,6 +163,7 @@
 
       
       function chargerMessageAuto(){
+        if(isset($_GET['id'])){
         var id = <?=json_encode($_GET['id'], JSON_UNESCAPED_UNICODE);?>;
         if(id >0){
           $.ajax({
@@ -193,11 +196,11 @@
             }
           });
         }
-        
+        } 
       }
       <?php 
       $nombre_total_message = 25;
-
+      if(isset($_GET['id'])){
       $q=$db->prepare("SELECT COUNT(id) nbMessage FROM messagerie 
                       WHERE ((id_from, id_to) = (:id1, :id2) OR (id_from, id_to) = (:id2, :id1))                               
                       ");
@@ -240,13 +243,14 @@
             });
             
           });
-
+      
+        
         <?php 
           }
-      
+        }
       ?>
     }); 
-
+  
   </script>  
 
 </body>

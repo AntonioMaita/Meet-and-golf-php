@@ -56,7 +56,7 @@
     
     if(!empty($_GET['id'])){        
         
-        $q = $db->prepare("SELECT U.*, P.id as p_id, P.users_id, P.post, P.date, P.like_count, F.*
+        $q = $db->prepare("SELECT U.*, P.id as p_id, P.users_id, P.post, P.date, P.like_count, P.comments_count, F.*
                             
                             FROM users U, friends_relationships F , post P
                             WHERE P.users_id = U.id 
@@ -135,19 +135,34 @@
 
        
 
-            $q = $db->query('SELECT  U.id u_id, U.pseudo u_pseudo, C.id c_id , C.comment, C.micropost_id , C.user_id c_user_id, M.id m_id , C.created_at c_created_at 
+            $q = $db->query('SELECT  U.id u_id, U.pseudo u_pseudo, U.avatar u_avatar, C.id c_id , C.comment, C.micropost_id , C.user_id c_user_id, M.id m_id , C.created_at c_created_at 
                                 FROM comments_micropost C , microposts M, users U
                                 WHERE  C.micropost_id = M.id AND C.user_id = U.id
+                                ORDER BY c_created_at ASC
                                 ');
             
                            
            
             $comments_post = $q->fetchAll(PDO::FETCH_OBJ);
         }
-    } else {
-        redirect('front_page.php?id='.get_session('user_id'));
-
-    }
     
+
+    if(isset($_GET['id']) && !empty($_GET['id'])){         
+
+       
+
+        $q = $db->query('SELECT  U.id u_id, U.pseudo u_pseudo, U.avatar u_avatar, C.id c_id , C.comment, C.post_id c_post_id , C.user_id c_user_id, P.id p_id , C.created_at c_created_at 
+                            FROM comments_post C , post P, users U
+                            WHERE  C.post_id = P.id AND C.user_id = U.id
+                            ORDER BY c_created_at ASC
+                            ');       
+                       
+       
+        $comments_post_post = $q->fetchAll(PDO::FETCH_OBJ);
+    }
+} else {
+    redirect('front_page.php?id='.$_GET['id']);
+
+}    
     
     require ('views/front_page.view.php');
