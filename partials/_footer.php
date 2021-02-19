@@ -115,7 +115,6 @@
         
         var id;
         var message;
-        if(isset($_GET['id'])){
         
         id = <?=json_encode($_GET['id'], JSON_UNESCAPED_UNICODE);?>;
         message = document.getElementById('messagerie').value;
@@ -151,7 +150,7 @@
             }
           });
         }
-      }
+      
       });
       
       var chargement_message_auto = 0;
@@ -163,7 +162,7 @@
 
       
       function chargerMessageAuto(){
-        if(isset($_GET['id'])){
+        
         var id = <?=json_encode($_GET['id'], JSON_UNESCAPED_UNICODE);?>;
         if(id >0){
           $.ajax({
@@ -196,11 +195,11 @@
             }
           });
         }
-        } 
+        
       }
       <?php 
       $nombre_total_message = 25;
-      if(isset($_GET['id'])){
+      
       $q=$db->prepare("SELECT COUNT(id) nbMessage FROM messagerie 
                       WHERE ((id_from, id_to) = (:id1, :id2) OR (id_from, id_to) = (:id2, :id1))                               
                       ");
@@ -247,10 +246,101 @@
         
         <?php 
           }
-        }
+        
       ?>
     }); 
+
+  //Comment_micropost
+  $(document).ready(function(){
+      if((document.getElementsByClassName('comment-micropost'))){
+      document.getElementsByClassName('comment-micropost').scrollTop = document.getElementsByClassName('comment-micropost').scrollHeight;
+      }
+      $('#postcomment').on("submit", function(e){
+        e.preventDefault();
+        
+        var id;
+        var comment;
+        
+        id = <?=json_encode($_GET['id'], JSON_UNESCAPED_UNICODE);?>;
+        comment = document.getElementsByClassName('comment-text-micropost').value;
+        
+        document.getElementsByClassName('comment-text-micropost').value = "";
+        
+        if(id > 0 && comment != ""){
+          $.ajax({
+            url : 'ajax/envoyer_commentaires.php',
+            method: 'POST',
+            dataType : 'html',
+            data : {id: id, comment: comment},
+            
+            success : function(data){
+              
+              $('#afficher-comment-micropost').append(data);
+              
+              document.getElementsByClassName('comment-micropost').scrollTop = document.getElementsByClassName('comment-micropost').scrollHeight;
+              document.location.reload();
+            },
+            
+            error : function(e, xhr, s){
+              let error = e.responseJSON;
+              if(e.status == 403 && typeof error !== 'undefined'){
+                alert('Erreur 403');
+              }else if(e.status == 403) {
+                alert('Erreur 403');
+              } else if(e.status == 401){
+                alert('Erreur 401');
+              }else {
+                alert('Erreur Ajax');
+              }
+            }
+          });
+        }
+      
+      });
   
+      var chargement_comment_auto = 0;
+
+      chargement_comment_auto = clearInterval(chargement_comment_auto);
+
+      chargement_comment_auto = setInterval(chargerCommentAuto, 2000) ;
+
+  function chargerCommentAuto(){
+        
+        var id = <?=json_encode($_GET['id'], JSON_UNESCAPED_UNICODE);?>;
+        if(id >0){
+          $.ajax({
+            url : 'ajax/charger_commentaires.php',
+            method: 'POST',
+            dataType : 'html',
+            data : {id: id},
+            
+            success : function(data){
+              if(data.trim() != ""){
+                $('#afficher-comment-micropost').append(data);
+               
+                document.getElementsByClassName('comment-micropost').scrollTop = document.getElementsByClassName('comment-micropost').scrollHeight;
+                // document.location.reload();
+               
+              }
+              
+            },
+            error : function(e, xhr, s){
+              let error = e.responseJSON;
+              if(e.status == 403 && typeof error !== 'undefined'){
+                alert('Erreur 403');
+              }else if(e.status == 403) {
+                alert('Erreur 403');
+              } else if(e.status == 401){
+                alert('Erreur 401');
+              }else {
+                alert('Erreur Ajax');
+              }
+            }
+          });
+        }
+        
+      }
+    });
   </script>  
 
 </body>

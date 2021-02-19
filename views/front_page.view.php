@@ -33,7 +33,7 @@
                                
                 <div class="card-body  bg-dark text-dark messagepost" >
                             <?php foreach($users as $user) : ?>  
-                
+                                
                                 
                                 <div class="card card-text shadow" id="post<?=$user->p_id?>">
                                     <div class="card-group text-dark shadow "> 
@@ -43,13 +43,13 @@
                                                                                                                                             
                                         ?>                                                                 
                   
-                                        <a class="publishName" href="profile.php?id=<?=$user->users_id?>"><img class="rounded-circle img-thumbnail" src="assets/avatars/<?php echo $user->avatar;?>" alt="avatar" width="40px" height="40px"/></a><br><br>
+                                        <a class="publishName" href="profile.php?id=<?=$user->users_id?>"><img class="rounded-circle img-thumbnail" src="assets/avatars/<?php echo $user->avatar;?>" alt="avatar" width="40px" height="auto"/></a><br><br>
                                             <?php } else { ?> 
                                                 <a class="publishName" href="profile.php?id=<?=$user->users_id?>"><img class="rounded-circle" src="assets/avatars/defaults/default.png" alt="default" width="40px" height="40px"></a>
                                             <?php } ?>  
                                         <p><a class="text-dark publishName" href="profile.php?id=<?=$user->users_id?>"><?=e($user->pseudo)?></a> a publié</p>
                                                                                 
-                                       <?php if(get_session('user_id') == ($user->users_id) ): ?>
+                                       <?php if(get_session('user_id') == ($user->users_id)): ?>
                                         <a  onclick="return confirm('Voulez-vous vraiment supprimer cette publication ?')" 
                                             class="btn btn-sm tooltip-test" href="delete_post.php?id=<?= $user->p_id ?>"> 
                                             <i class="fa fa-trash "></i> Supprimer 
@@ -95,12 +95,12 @@
                                     </div> <br>
                                     <div class="modal-body">
                                     
-                                        <?php include('views/comments_post_post.view.php'); ?>
+                                        <?php include('views/comments_post_post.view.php'); ?> <br>
                                     
                                         <div id="commentaires">
                                             <form action="comments_post.php?id=<?= $user->p_id ?>" method="post" data-parsley-validate>
                                                 <textarea name="comment_post" id="comment_post<?=$user->p_id?>" cols="30" rows="2" placeholder="Laissez un commentaire..."></textarea>
-                                                <input class="btn btn-success btn-sm" name="postcomment_post" type="submit" >
+                                                <input class="btn btn-success btn-sm" name="postcomment_post" type="submit" value="Envoyer" >
                                             </form>
                                         </div>    
                                     
@@ -110,8 +110,10 @@
                                         
                                     </div>
                                 </div>
-                            </div>
+                            
+                            </div>   
                         </div> <br>
+                        
                             <?php endforeach;?>                                                     
                     
 
@@ -129,13 +131,13 @@
                                                                                                                                             
                                         ?>                                                                 
                   
-                                        <a class="publishName" href="profile.php?id=<?=$micropost->user_id?>"><img class="rounded-circle img-thumbnail" src="assets/avatars/<?php echo $micropost->avatar;?>" alt="avatar" width="40px" height="40px"/></a><br><br>
+                                        <a class="publishName" href="profile.php?id=<?=$micropost->user_id?>"><img class="rounded-circle img-thumbnail" src="assets/avatars/<?php echo $micropost->avatar;?>" alt="avatar" width="40px" height="auto"/></a><br><br>
                                             <?php } else { ?> 
                                                 <a class="publishName" href="profile.php?id=<?=$micropost->user_id?>"><img class="rounded-circle" src="assets/avatars/defaults/default.png" alt="default" width="40px" height="40px"></a>
                                             <?php } ?>  
                                         <p><a class="text-dark publishName" href="profile.php?id=<?=$micropost->user_id?>"><?=e($micropost->pseudo)?></a> a publié</p>
                                                                                 
-                                       <?php if(get_session('user_id') == ($micropost->user_id) ): ?>
+                                       <?php if(get_session('user_id') == ($micropost->user_id) || get_session('user_id') == ($micropost->user_id) ): ?>
                                         <a  onclick="return confirm('Voulez-vous vraiment supprimer cette publication ?')" 
                                             class="btn btn-sm tooltip-test" href="delete_micropostPost.php?id=<?= $micropost->m_id ?>"> 
                                             <i class="fa fa-trash "></i> Supprimer 
@@ -180,15 +182,15 @@
                                     <div class="modal-header">
                                         <h5 class="modal-title text-dark" id="staticBackdropLabel">Commentaires</h5>
                                         <button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div> <br>
+                                    </div> 
                                     <div class="modal-body">
                                     
-                                        <?php include('views/comments_post.view.php'); ?>
+                                        <?php include('views/comments_post.view.php'); ?> <br>
                                     
                                         <div id="commentaires">
                                             <form action="comments_post.php?id=<?= $micropost->m_id ?>" method="post" data-parsley-validate>
                                                 <textarea name="comment_micropost" id="comment_micropost<?=$micropost->m_id?>" cols="30" rows="2" placeholder="Laissez un commentaire..."></textarea>
-                                                <input class="btn btn-success btn-sm" name="postcomment_micropost" type="submit" >
+                                                <input class="btn btn-success btn-sm" name="postcomment_micropost" type="submit" value="Envoyer">
                                             </form>
                                         </div>    
                                     
@@ -216,7 +218,7 @@
                      
                     
                                 
-            </div>
+            
                 
             </div>
         </div>

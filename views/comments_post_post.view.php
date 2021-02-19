@@ -10,7 +10,7 @@
         <?php if (!empty($comment_post_post->u_avatar)) {
 
         ?>
-            <img class="rounded-circle" src="assets/avatars/<?=$comment_post_post->u_avatar; ?>" alt="avatar" width="40px" height="40px" />
+            <img class="rounded-circle" src="assets/avatars/<?=$comment_post_post->u_avatar; ?>" alt="avatar" width="40px" height="auto" />
         <?php } else { ?>
             <img class="rounded-circle" src="assets/avatars/defaults/default.png" alt="default" width="40px" height="40px">
         <?php } ?>
@@ -18,7 +18,7 @@
         
         
        
-        <?php if(get_session('user_id') == ($comment_post_post->c_user_id) ): ?>
+        <?php if(get_session('user_id') == ($comment_post_post->c_user_id)  || get_session('user_id') == ($user->users_id) ): ?>
             <a  onclick="return confirm('Voulez-vous vraiment supprimer cette publication ?')" 
                 class="btn btn-sm tooltip-test" href="delete_post_comment_post.php?id=<?= $comment_post_post->c_id ?>"> 
                 <i class="fa fa-trash text-white"></i>

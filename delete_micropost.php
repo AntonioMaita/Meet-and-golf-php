@@ -30,4 +30,4 @@
         
     }
 
- redirect('profile.php?id='.get_session('user_id'));
+ redirect('profile.php?id='.$_GET['user_id']);

@@ -30,7 +30,7 @@ session_start();
 
      foreach($comments as $comment){
 
-    if($comment->user_id == get_session('user_id')){
+    
             
             
           
@@ -45,7 +45,7 @@ session_start();
                   
 
             set_flash("Votre commentaire a été supprimée avec succès!");
-    }    
+      
         
     } 
         
@@ -55,6 +55,6 @@ session_start();
         
     
 
- redirect('profile.php?id='.get_session('user_id'));
+    redirect($_SERVER['HTTP_REFERER']);
  
  ?>

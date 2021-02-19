@@ -10,14 +10,14 @@
             <div class=" col-md-6">
                 
                 <div class="card shadow profile">
-                    <div class="card-header text-white bg-success mb-3 shadow ">
+                    <div class="card text-white bg-success mb-3 shadow ">
                         
-                        <h3 class="card-title">Profil de <?=e($user->pseudo)?> 
-                        <a class=" text-dark <?= set_active('edit_user')?>" href="edit_user.php?id=<?=get_session('user_id')?>"><i class="fas fa-user-edit"></i> </a>
-                        <a class ="text-white" href="list_contact.php?id=<?=$_GET['id']?>"><p class=" card-text float-end">(<?=friends_count($_GET['id'])?> ami<?=friends_count($_GET['id']) <= 1 ? '' : 's'?>)</p></a>
-                        
+                        <h3 class="card-title">Profil de <?=e($user->pseudo)?>                         
+                            <?php if(get_session('user_id') == $_GET['id']) : ?>                            
+                            <a class=" text-dark <?= set_active('edit_user')?>" href="edit_user.php?id=<?=get_session('user_id')?>"><i class="fas fa-user-edit float-end "></i> </a>
+                        <?php endif ;?>
                         </h3>
-                        
+                        <a class ="text-white" href="list_contact.php?id=<?=$_GET['id']?>"><p class=" card-text">(<?=friends_count($_GET['id'])?> ami<?=friends_count($_GET['id']) <= 1 ? '' : 's'?>)</p></a>
                     </div>
                     <div class="card-body shadow">
                         <div class="row">
@@ -30,7 +30,7 @@
                                     if(!empty($img['avatar'])) {
                                                                                                                                 
                                 ?>
-                                <img class="rounded-circle float-start" src="assets/avatars/<?php echo $img['avatar'];?>" alt="avatar" width="200px" height="200px"  />
+                                <img class="rounded-circle float-start" src="assets/avatars/<?php echo $img['avatar'];?>" alt="avatar" width="200px" height="auto"  />
                                     <?php } else { ?> 
                                 <img class="rounded-circle float-start" src="assets/avatars/defaults/default.png" alt="default" width="25%" >
                                     <?php } ?>                                    
@@ -78,8 +78,10 @@
                                 <?= 
                                    e($user->club) ? '<i class="fas fa-golf-ball"></i>&nbsp;'.e($user->club) : '';
                                 ?> <br>
-                                <a class="btn btn-sm" href="https://google.com/maps?q=<?= e($user->club)?>" target="_blank">Voir sur Google Maps </a>
-                                
+                                <?php if(e($user->club)) :?>
+                                <a class="btn btn-sm btn-success" href="https://google.com/maps?q=<?= e($user->club)?>" target="_blank">Voir sur Google Maps </a>
+                                <?php else : echo ''; ?>
+                                <?php endif ; ?>
                                  <br> <br>
                             </div> <br> <br>
                             
@@ -89,7 +91,10 @@
                                     e($user->adress) && e($user->city) &&  e($user->country) ? '<i class="fas fa-map-marker-alt"></i>&nbsp;'.e($user->adress). ' - '.e($user->city) . ' - ' .e($user->country) : '';
                                 ?>
                                 <br>
-                                <a class="btn btn-sm" href="https://google.com/maps?q=<?= e($user->adress). ' '.e($user->city) . ' ' .e($user->country)?>" target="_blank">Voir sur Google Maps </a>
+                                <?php if(e($user->adress) && e($user->city) &&  e($user->country)) : ?>
+                                <a class="btn btn-sm btn-success" href="https://google.com/maps?q=<?= e($user->adress). ' '.e($user->city) . ' ' .e($user->country)?>" target="_blank">Voir sur Google Maps </a>
+                                <?php else : echo ''; ?>
+                                <?php endif ; ?>
                                 <br> <br>    
                             </div>                    
                             

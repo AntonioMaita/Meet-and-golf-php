@@ -16,7 +16,7 @@
 
       <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
         <ul class="nav navbar-nav col-4">
-          <li><a class="nav-link  <?= set_active('list_users')?>" href="list_users.php">Liste des utilisateurs</a></li>
+          <li><a class="nav-link  <?= set_active('list_users')?>" href="list_users.php?id=<?=get_session('user_id')?>">Liste des utilisateurs</a></li>
           
         
         </ul>
@@ -38,7 +38,7 @@
                   if(!empty($img['avatar'])) {                                                                                                                                    
                 ?>
                   
-                    <img class="avatar rounded justify-content-end" src="assets/avatars/<?php echo $img['avatar'];?>" alt="avatar" width="50px" height="50px"/> 
+                    <img class="avatar rounded justify-content-end" src="assets/avatars/<?php echo $img['avatar'];?>" alt="avatar" width="50px" height="auto"/> 
                   <?php } else { ?> 
                     <img class="rounded-circle rounded justify-content-end" src="assets/avatars/defaults/default.png" alt="default" width="40px" height="40px"/>
                   <?php } ?>
@@ -64,11 +64,23 @@
               </ul>
             </li>
             <li class="have_notifs">
-               <a class="nav-link text-danger" href="notifications.php"><i class="fa fa-bell"></i><?= $notifications_count > 0 ? "($notifications_count)" : ''; ?></a>
+               <a class="nav-link text-danger" href="notifications.php?id=<?=get_session('user_id')?>"><i class="fa fa-bell"></i><?= $notifications_count > 0 ? "($notifications_count)" : ''; ?></a>
              
             </li>
             <li class="nav-item">
-               <a class="nav-link" href="messagerie.php?id=<?=get_session('user_id')?>">Messagerie</a>
+              <?php include('./notif_messagerie.php'); ?>
+              <?php foreach($afficher_conversation as $ac) :?>
+                <?php if($ac->id_from != get_session('user_id') && $ac->lu == "1") : ?>                            
+               <a class="nav-link text-danger"  href="messagerie.php?id=<?=get_session('user_id')?>"> Nouveau Message reçu</a>
+               
+               <?php endif ; ?>
+               <?php endforeach ; ?>
+               
+                <a class="nav-link" href="messagerie.php?id=<?=get_session('user_id')?>">Messagerie</a>
+               
+               
+               
+            
             </li>
             
 

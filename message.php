@@ -76,10 +76,10 @@ if(!empty($_POST)){
             $er_message = "Veuillez entrez un message";
         }
         if($valid){
-            $date_message =("Y-m-d H:i:s");
-            $q=$db->prepare('INSERT INTO messagerie (id_from, id_to, message, date_message  lu )
-                         VALUES (?,?,?,?,?) ');
-            $q->execute([get_session('user_id'), $get_id, $message, $date_message, 1]);
+            
+            $q=$db->prepare('INSERT INTO messagerie (id_from, id_to, message,lu )
+                         VALUES (?,?,?,?,) ');
+            $q->execute([get_session('user_id'), $get_id, $message, 1]);
             header("Cache-Control: no-cache, must-revalidate");
         }
         

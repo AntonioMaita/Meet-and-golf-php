@@ -7,7 +7,7 @@
             <?php if (!empty($user->avatar)) {
 
             ?>
-                <img class="rounded-circle" src="assets/avatars/<?=$user->avatar; ?>" alt="avatar" width="40px" height="40px" />
+                <img class="rounded-circle" src="assets/avatars/<?=$user->avatar; ?>" alt="avatar" width="40px" height="auto" />
             <?php } else { ?>
                 <img class="rounded-circle" src="assets/avatars/defaults/default.png" alt="default" width="40px" height="40px">
             <?php } ?>
@@ -61,21 +61,22 @@
 
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop<?= $micropost->id ?>" data-bs-backdrop="static" data-bs-keyboard="false" 
-    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" data-refresh="true">
+    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" data-bs-refresh="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title text-dark" id="staticBackdropLabel">Commentaires</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
+      </div> 
+      <div class="modal-body comment-micropost">
       
-      <?php include('views/comments.view.php'); ?>
+      <?php include('views/comments.view.php'); ?> <br>
+      
       
       <div id="commentaires">
             <form action="comments.php?id=<?= $micropost->id ?>" method="post" data-parsley-validate>
-                <textarea name="comment" id="comment<?=$micropost->id?>" cols="30" rows="2" placeholder="Laissez un commentaire..."></textarea>
-                <input class="btn btn-success btn-sm" name="postcomment" type="submit" >
+                <textarea class="comment-text-micropost" name="comment" id="comment<?=$micropost->id?>" cols="30" rows="2" placeholder="Laissez un commentaire..."></textarea>
+                <input class="btn btn-success btn-sm" name="postcomment" type="submit" value="Envoyer" >
             </form>
         </div>    
       

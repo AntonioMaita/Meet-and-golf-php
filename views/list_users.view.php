@@ -5,7 +5,7 @@
 <div class="container">
     <?php if(!empty($users)) : ?>
         <div class="row ">
-            <h3 class="card bg-dark text-white">Liste des utilisateurs</h3>
+            <h3 class="card card-lead shadow p-3 bg-secondary text-white">Liste des utilisateurs</h3>
             
             <?php foreach($users as $user) { ?> 
                 <div class="card col-md-3 bg-dark m-2 shadow" style="height: 70px;">
