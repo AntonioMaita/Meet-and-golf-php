@@ -18,7 +18,7 @@
             redirect('index.php');
 
         } else {
-            $q = $db->prepare('SELECT id, content, created_at, user_id, like_count, comments_count FROM microposts
+            $q = $db->prepare('SELECT id, content, created_at, user_id, like_count, comments_count, img FROM microposts
                                 WHERE user_id = :user_id
                                 ORDER BY created_at DESC');
             $q->execute([

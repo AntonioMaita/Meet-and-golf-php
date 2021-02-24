@@ -7,7 +7,7 @@
 
 
     if(!empty($_GET['id'])){
-        $q = $db->prepare('SELECT users_id FROM post WHERE id = :id');
+        $q = $db->prepare('SELECT users_id, img FROM post WHERE id = :id');
         $q->execute([
         'id' => $_GET['id']
         ]);
@@ -17,6 +17,10 @@
        
 
         if($user_id == get_session('user_id')){
+
+            $path = 'assets/images/'.$data->img;
+                
+                unlink(realpath($path));
 
             $q = $db->prepare('DELETE FROM post WHERE id = :id');
             $q->execute([

@@ -152,15 +152,16 @@
                         <div class="card-header text-white bg-success mb-3 shadow ">
                             <h3 class="card-title">Status de  <?=e($user->pseudo)?></h3>
                         </div>
-                        <div class="card-body shadow">
+                        <div class="card-body shadow ">
                             <div class="form-group">
-                                <form action="micropost.php" method="post" data-parsley-validate>
+                                <form action="micropost.php" method="post" data-parsley-validate enctype="multipart/form-data">
                                     <br> <br>
                                     <textarea name="content" id="content" cols="20" rows="5" placeholder="Entrez votre status"
                                         class="form-control" required="required" data-parsley-maxlength="250"></textarea><br>
-
-                                    <input type="submit" class="btn btn-success btn-sm float-end" value="Publier" name="publish" >  <br> <br>
-                                
+                                       
+                                        <input type="file" name="file_micropost_image" id="file_micropost_image" style="visibility:hidden">
+                                        <i class="fas fa-image btn btn-lg float-start" onclick="$('#file_micropost_image').click();"></i>
+                                        <input type="submit" class="btn btn-success btn-sm float-end" value="Publier" name="publish" >  <br> <br>                                    
                                 </form>
                                 
                             </div>

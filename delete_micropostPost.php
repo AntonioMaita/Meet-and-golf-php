@@ -6,7 +6,7 @@
 
 
     if(!empty($_GET['id'])){
-        $q = $db->prepare('SELECT user_id FROM microposts WHERE id = :id');
+        $q = $db->prepare('SELECT user_id, img FROM microposts WHERE id = :id');
         $q->execute([
         'id' => $_GET['id']
         ]);
@@ -17,6 +17,9 @@
 
         if($user_id == get_session('user_id')){
             
+            $path = 'assets/images/'.$data->img;
+                
+                unlink(realpath($path));
 
             $q = $db->prepare('DELETE FROM microposts WHERE id = :id');
             $q->execute([

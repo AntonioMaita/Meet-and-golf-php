@@ -1,7 +1,7 @@
   
-  <div class ="card-footer bg-dark text-white ">Meet and golf &copy 2021</div>
+  <div class ="card-footer bg-dark text-white col-md-12 ">Meet and golf &copy 2021</div>
   
-  <!-- JavaScript Bundle with Popper -->
+  <!-- JavaScript Bundle  -->
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

@@ -49,7 +49,7 @@
 
   #post {
     min-height: 150px;
-    opacity: 70%;
+    opacity: 90%;
   }
 
   .question {
@@ -58,11 +58,11 @@
   }
 
   .fildactualite {
-    opacity: 85%;
-  }
-  .messagepost {
     opacity: 90%;
   }
+  /* .messagepost {
+    opacity: 90%;
+  } */
 
   .completeprofile {
     opacity: 90%;
@@ -253,5 +253,7 @@ box-shadow: 2px 2px 4px rgba(33, 33, 33, .1);
   clear:both;
   word-break: break-all;
 }
+
+
 
   

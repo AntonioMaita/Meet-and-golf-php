@@ -6,13 +6,15 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <form action="" method="post">
+                    <form action="" method="post"  enctype="multipart/form-data" >
                         <label class="card-body bg-secondary text-white question"for="post">Quoi de neuf <?=e($user->pseudo)?> ?</label> <br> <br>
                         <textarea  name="post" id="post" cols="50" rows="5" placeholder="Entrez votre sujet"
                             class="form-control publishPost" data-parsley-maxlength="150"></textarea><br>
-
+                           <input type="file" id="file_post_image" name="file_post_image"style="visibility:hidden" >
+                           <i class="fas fa-image btn btn-lg float-start bg-success" onclick="$('#file_post_image').click();"></i>
                             <input type="submit" class="btn btn-success btn-xl float-end" value="Publier" name="postmessage" >  <br> <br>
-                    </form>
+                            
+                        </form>
                      
                 </div>                
                                             
@@ -31,7 +33,7 @@
             <?php if (count($users) != 0 || count($microposts) !=0) :?>
                       
                                
-                <div class="card-body  bg-dark text-dark messagepost" >
+                <div class="card-body  bg-dark text-dark messagepost " >
                             <?php foreach($users as $user) : ?>  
                                 
                                 
@@ -60,7 +62,12 @@
                                     <p><i class="fa fa-clock-o"> <span class="timeago" title="<?= $user->date ?>"><?= $user->date ?></span></i></p> <br>
                                                          
                                    
-                                   <p> <?php echo nl2br(replace_links(e($user->post))); ?> <p> <br> 
+                                   
+                                   <p><?php echo nl2br(replace_links(e($user->post))); ?> <p> 
+                                   <?php if($user->img): ?>
+                                   <a href="assets/images/<?=$user->img?>" target="_blank"><img class ="col-md-12" src="assets/images/<?=$user->img?>" alt="" width="auto"></a>
+                                   <?php endif;?>
+                                   <br> 
                                     <hr class="text-dark">                                                      
                                     <div class="text-dark">                                                                      
                                         
@@ -109,17 +116,17 @@
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                         
                                     </div>
-                                </div>
+                                </div> 
                             
                             </div>   
-                        </div> <br>
-                        
+                        </div> <br> 
+                        <hr class="text-white"> <br>
                             <?php endforeach;?>                                                     
                     
-
+                  
 
                                 <!-- Micropost -->
-                                 
+                            <div class="card-body  bg-dark text-dark messagepost" >
                                     <?php foreach($microposts as $micropost): ?>
 
                                                                           
@@ -149,7 +156,10 @@
                                                          
                                    
                                     <p> <?php echo nl2br(replace_links(e($micropost->content))); ?> <p> 
-                                            <hr class="text-dark">
+                                    <?php if($micropost->img): ?>
+                                    <a href="assets/images/<?=$micropost->img?>" target="_blank"><img class ="col-md-12" src="assets/images/<?=$micropost->img?>" alt="" width="auto"></a>
+                                   <?php endif;?>
+                                    <hr class="text-dark">
                                     <div class="text-dark">
                                     
                                         <div class="text-dark" id="likers_<?=$micropost->m_id?>"> 
@@ -203,9 +213,9 @@
                             </div>
                         </div> <br>
 
-                                
+                               
                                 <?php endforeach;?>
-                                                                                                         
+                                                                                                       
                                       
                                             
             <?php else : ?>
@@ -213,10 +223,7 @@
                         <p>Aucun message pour le moment...</p>
                     </div>
                     
-            <?php endif; ?> 
-                      
-                     
-                    
+            <?php endif; ?>              
                                 
             
                 

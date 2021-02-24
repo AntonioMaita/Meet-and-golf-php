@@ -35,7 +35,7 @@
                                     if(!empty($img['avatar'])) {
                                                                                                                                    
                                 ?>
-                                <img class="rounded-circle img-thumbnail" src="assets/avatars/<?php echo $img['avatar'];?>" alt="avatar" width="150px" height="150px"/> <br>
+                                <img class="rounded-circle img-thumbnail" src="assets/avatars/<?php echo $img['avatar'];?>" alt="avatar" width="150px" height="auto"/> <br>
                                     <?php } else { ?> 
                                 <img class="rounded-circle" src="assets/avatars/defaults/default.png" alt="default" width="25%" >
                                     <?php } ?>

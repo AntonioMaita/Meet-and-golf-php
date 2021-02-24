@@ -28,25 +28,68 @@
     //requete Post
     if(isset($_POST['postmessage'])) {       
 
-        if (not_empty(['post'])) {
-
-
+        if (!empty($_POST['post'])) {
             extract($_POST);
 
             $error=[];
-
-            $q= $db->prepare('INSERT INTO post (post, users_id) VALUE (:post, :users_id)');
-
-                $q->execute([
-                    'post' => $post,
-                    'users_id' => get_session('user_id')
+            if(mb_strlen($post) <3 || mb_strlen($post) > 140) {
+                set_flash('Contenu invalide (Minimum 3 caractères | Maximum 140 caractères)', 'danger');
+    
+            } else {
+    
+                if(isset($_FILES['file_post_image']) AND !empty($_FILES['file_post_image']['name'])) {
+                        $tailleMax = 2097152;
+                            // 2mo  = 2097152
+                            // 3mo  = 3145728
+                            // 4mo  = 4194304
+                            // 5mo  = 5242880
+                            // 7mo  = 7340032
+                            // 10mo = 10485760
+                            // 12mo = 12582912
+                            
+                    $extensionsValides = array('jpg', 'jpeg', 'gif', 'png');
+                    if($_FILES['file_post_image']['size'] <= $tailleMax) {
+                        
+                        $extensionUpload = strtolower(substr($_FILES['file_post_image']['name'], -3));
+                                
+                        if(in_array($extensionUpload, $extensionsValides)) {
+                                        $chemin = "assets/images/".$_FILES['file_post_image']['name'].".".$extensionUpload;
+                                        $resultat = move_uploaded_file($_FILES['file_post_image']['tmp_name'], $chemin);
                     
-                    
-                    ]);
+                                    if($resultat) {
+    
+                                                $q=$db->prepare('INSERT INTO post(post, img, users_id) VALUES (:post, :img, :users_id)');
+                                                $q->execute([
+                                                    'post' => $post,
+                                                    'img' => $_FILES['file_post_image']['name'].".".$extensionUpload,
+                                                    'users_id'=> get_session('user_id')
+                                                ]);                                                       
+                                    
+                                        } else {
+                                        
+                                                $msg = "Erreur durant l'importation de votre photo de profil";
+                                        }
+                        } else {
+                            $msg = "Votre photo de profil doit être au format jpg, jpeg, gif ou png";
+                            }     
+    
+                    }
                 
-                set_flash("Publication envoyé");
-                header('Location: front_page.php?id='.get_session('user_id'));
+                } else {
+
+                    $q= $db->prepare('INSERT INTO post (post, users_id) VALUE (:post, :users_id)');
+
+                    $q->execute([
+                        'post' => $post,
+                        'users_id' => get_session('user_id')                   
+                        
+                        ]);
+                    
+                    set_flash("Publication envoyé");
+                    header('Location: front_page.php?id='.get_session('user_id'));
+                }
         }
+    }
 
 
     }else {
@@ -56,7 +99,7 @@
     
     if(!empty($_GET['id'])){        
         
-        $q = $db->prepare("SELECT U.*, P.id as p_id, P.users_id, P.post, P.date, P.like_count, P.comments_count, F.*
+        $q = $db->prepare("SELECT U.*, P.id as p_id, P.users_id, P.post,P.img, P.date, P.like_count, P.comments_count, F.*
                             
                             FROM users U, friends_relationships F , post P 
                             WHERE P.users_id = U.id 
@@ -75,7 +118,7 @@
 
                             AND F.status > 0
                             
-                            
+                            ORDER BY P.date DESC
                             
                             ");
         $q->execute([
@@ -106,7 +149,7 @@
 
         } else {
             $q = $db->prepare("SELECT U.id user_id, U.pseudo, U.email, U.avatar, 
-                                M.id m_id, M.content, M.created_at, M.like_count, M.comments_count
+                                M.id m_id, M.content,M.img, M.created_at, M.like_count, M.comments_count
                                 FROM users U, microposts M, friends_relationships F 
                                 WHERE M.user_id = U.id 
 
@@ -124,7 +167,7 @@
 
                                 AND F.status > 0
                                 
-                                
+                                ORDER BY M.created_at DESC
                                 
                                 ");
             $q->execute([
