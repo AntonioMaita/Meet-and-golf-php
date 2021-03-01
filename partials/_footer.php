@@ -1,5 +1,15 @@
   
-  <div class ="card-footer bg-dark text-white col-md-12 ">Meet and golf &copy 2021</div>
+  <div class =" card-footer bg-dark text-white col-md-12">
+    <div class="col-md-6">
+      <p>Meet and golf &copy <?php echo date('Y')?></p>      
+      <a href="change_password.php">Modifier votre mot de passe</a> <br>
+      <a href="logout.php">Se déconnecter</a> 
+      <div class="col-md-6 float-end">
+      <a href="#">Contacts</a>
+    </div>
+    </div>
+    
+  </div>
   
   <!-- JavaScript Bundle  -->
 
@@ -8,17 +18,20 @@
   
   <script src="assets/js/jquery.timeago.js"></script>
   <script src="assets/js/jquery.timeago.fr.js"></script> 
-  <script src="assets/js/jquery.livequery.min.js"></script>       
+  <script src="assets/js/jquery.livequery.min.js"></script>
+       
   <script src="libraries/parsley/parsley.min.js" ></script>
   <script src="libraries/parsley/i18n/fr.js" ></script>
   <script src="assets/js/main.js"></script>
-  <script type="text/javascript">
+  <script>
     window.ParsleyValidator.setLocale('fr');
+
+    
     jQuery(document).ready(function() {
       jQuery(".timeago").timeago(); 
 
-
-      //System de like
+       
+            //System de like
       $("a.like").on("click", function(e) {
         e.preventDefault();
 
@@ -104,243 +117,7 @@
 
     });
 
-    //message
-    
-    $(document).ready(function(){
-      if((document.getElementById('msg'))){
-      document.getElementById('msg').scrollTop = document.getElementById('msg').scrollHeight;
-      }
-      $('#envoyer').on("submit", function(e){
-        e.preventDefault();
-        
-        var id;
-        var message;
-        
-        id = <?=json_encode($_GET['id'], JSON_UNESCAPED_UNICODE);?>;
-        message = document.getElementById('messagerie').value;
-        
-        document.getElementById('messagerie').value = "";
-        
-        if(id > 0 && message != ""){
-          $.ajax({
-            url : 'ajax/envoyer_message.php',
-            method: 'POST',
-            dataType : 'html',
-            data : {id: id, message: message},
-            
-            success : function(data){
-              
-              $('#afficher-message').append(data);
-              
-              document.getElementById('msg').scrollTop = document.getElementById('msg').scrollHeight;
-              // document.location.reload();
-            },
-            
-            error : function(e, xhr, s){
-              let error = e.responseJSON;
-              if(e.status == 403 && typeof error !== 'undefined'){
-                alert('Erreur 403');
-              }else if(e.status == 403) {
-                alert('Erreur 403');
-              } else if(e.status == 401){
-                alert('Erreur 401');
-              }else {
-                alert('Erreur Ajax');
-              }
-            }
-          });
-        }
-      
-      });
-      
-      var chargement_message_auto = 0;
-
-      chargement_message_auto = clearInterval(chargement_message_auto);
-
-      chargement_message_auto = setInterval(chargerMessageAuto, 1000) ;
-      
-
-      
-      function chargerMessageAuto(){
-        
-        var id = <?=json_encode($_GET['id'], JSON_UNESCAPED_UNICODE);?>;
-        if(id >0){
-          $.ajax({
-            url : 'ajax/charger_message.php',
-            method: 'POST',
-            dataType : 'html',
-            data : {id: id},
-            
-            success : function(data){
-              if(data.trim() != ""){
-                $('#afficher-message').append(data);
-               
-                document.getElementById('msg').scrollTop = document.getElementById('msg').scrollHeight;
-                // document.location.reload();
-               
-              }
-              
-            },
-            error : function(e, xhr, s){
-              let error = e.responseJSON;
-              if(e.status == 403 && typeof error !== 'undefined'){
-                alert('Erreur 403');
-              }else if(e.status == 403) {
-                alert('Erreur 403');
-              } else if(e.status == 401){
-                alert('Erreur 401');
-              }else {
-                alert('Erreur Ajax');
-              }
-            }
-          });
-        }
-        
-      }
-      <?php 
-      $nombre_total_message = 25;
-      
-      $q=$db->prepare("SELECT COUNT(id) nbMessage FROM messagerie 
-                      WHERE ((id_from, id_to) = (:id1, :id2) OR (id_from, id_to) = (:id2, :id1))                               
-                      ");
-      $q->execute(['id1'=> $_SESSION['user_id'], 'id2' => $_GET['id']]);
-      
-      $nombre_message = $q->fetch();
-        if($nombre_message['nbMessage'] > $nombre_total_message) {
-        ?>
-          var req = 0;
-        
-          $('#voir-plus').click(function(){
-            var id ;
-            var el ;
-            req += <?=$nombre_total_message?>;
-            id = <?=json_encode($_GET['id'], JSON_UNESCAPED_UNICODE);?>;
-            $.ajax({
-              url : 'ajax/voir_plus_messages.php',
-              method: 'POST',
-              dataType : 'html',
-              data : {limit: req, id: id},
-              
-              success : function(data){
-                
-                  $(data).hide().appendTo('#voir-plus-message').fadeIn(2000);
-                  document.getElementById('voir-plus-message').removeAttribute('id') ;
-                              
-              },
-              error : function(e, xhr, s){
-                let error = e.responseJSON;
-                if(e.status == 403 && typeof error !== 'undefined'){
-                  alert('Erreur 403');
-                }else if(e.status == 403) {
-                  alert('Erreur 403');
-                } else if(e.status == 401){
-                  alert('Erreur 401');
-                }else {
-                  alert('Erreur Ajax');
-                }
-              }
-            });
-            
-          });
-      
-        
-        <?php 
-          }
-        
-      ?>
-    }); 
-
-  //Comment_micropost
-  $(document).ready(function(){
-      if((document.getElementsByClassName('comment-micropost'))){
-      document.getElementsByClassName('comment-micropost').scrollTop = document.getElementsByClassName('comment-micropost').scrollHeight;
-      }
-      $('#postcomment').on("submit", function(e){
-        e.preventDefault();
-        
-        var id;
-        var comment;
-        
-        id = <?=json_encode($_GET['id'], JSON_UNESCAPED_UNICODE);?>;
-        comment = document.getElementsByClassName('comment-text-micropost').value;
-        
-        document.getElementsByClassName('comment-text-micropost').value = "";
-        
-        if(id > 0 && comment != ""){
-          $.ajax({
-            url : 'ajax/envoyer_commentaires.php',
-            method: 'POST',
-            dataType : 'html',
-            data : {id: id, comment: comment},
-            
-            success : function(data){
-              
-              $('#afficher-comment-micropost').append(data);
-              
-              document.getElementsByClassName('comment-micropost').scrollTop = document.getElementsByClassName('comment-micropost').scrollHeight;
-              document.location.reload();
-            },
-            
-            error : function(e, xhr, s){
-              let error = e.responseJSON;
-              if(e.status == 403 && typeof error !== 'undefined'){
-                alert('Erreur 403');
-              }else if(e.status == 403) {
-                alert('Erreur 403');
-              } else if(e.status == 401){
-                alert('Erreur 401');
-              }else {
-                alert('Erreur Ajax');
-              }
-            }
-          });
-        }
-      
-      });
-  
-      var chargement_comment_auto = 0;
-
-      chargement_comment_auto = clearInterval(chargement_comment_auto);
-
-      chargement_comment_auto = setInterval(chargerCommentAuto, 2000) ;
-
-  function chargerCommentAuto(){
-        
-        var id = <?=json_encode($_GET['id'], JSON_UNESCAPED_UNICODE);?>;
-        if(id >0){
-          $.ajax({
-            url : 'ajax/charger_commentaires.php',
-            method: 'POST',
-            dataType : 'html',
-            data : {id: id},
-            
-            success : function(data){
-              if(data.trim() != ""){
-                $('#afficher-comment-micropost').append(data);
-               
-                document.getElementsByClassName('comment-micropost').scrollTop = document.getElementsByClassName('comment-micropost').scrollHeight;
-                // document.location.reload();
-               
-              }
-              
-            },
-            error : function(e, xhr, s){
-              let error = e.responseJSON;
-              if(e.status == 403 && typeof error !== 'undefined'){
-                alert('Erreur 403');
-              }else if(e.status == 403) {
-                alert('Erreur 403');
-              } else if(e.status == 401){
-                alert('Erreur 401');
-              }else {
-                alert('Erreur Ajax');
-              }
-            }
-          });
-        }
-        
-      }
-    });
+          
   </script>  
 
 </body>

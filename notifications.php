@@ -3,6 +3,11 @@
  require("includes/init.php");
  include('filters/auth_filter.php');
 
+
+
+
+
+
  // Nous récupérons toutes les notifications de l'utilisateur connecté
  // (Aussi bien les notifications lues que les notifications non lues).
 

@@ -90,6 +90,12 @@ if(!empty($_POST)){
     }
 }
 
+$q=$db->prepare("SELECT pseudo , avatar FROM users WHERE id = :id");                    
+$q->execute([ 'id' => $_GET['id']]);
+
+
+$users = $q->fetchAll(PDO::FETCH_OBJ);
+
  
  require('views/message.view.php');
 

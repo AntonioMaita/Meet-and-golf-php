@@ -38,9 +38,9 @@
                   if(!empty($img['avatar'])) {                                                                                                                                    
                 ?>
                   
-                    <img class="avatar rounded justify-content-end" src="assets/avatars/<?php echo $img['avatar'];?>" alt="avatar" width="50px" height="auto"/> 
+                    <img class="avatar img-fluid rounded justify-content-end" src="assets/avatars/<?php echo $img['avatar'];?>" alt="avatar" width="50px" height="auto"/> 
                   <?php } else { ?> 
-                    <img class="rounded-circle rounded justify-content-end" src="assets/avatars/defaults/default.png" alt="default" width="40px" height="40px"/>
+                    <img class="img-fluid rounded-circle rounded justify-content-end" src="assets/avatars/defaults/default.png" alt="default" width="40px" height="40px"/>
                   <?php } ?>
               </a>
               
@@ -64,17 +64,15 @@
               </ul>
             </li>
             <li class="have_notifs">
-               <a class="nav-link text-danger" href="notifications.php?id=<?=get_session('user_id')?>"><i class="fa fa-bell"></i><?= $notifications_count > 0 ? "($notifications_count)" : ''; ?></a>
+            
+   
+                  
+               <a class="nav-link text-danger" href="notifications.php?id=<?=get_session('user_id')?>"><i class="fa fa-bell"></i><?= $notifications_count > 0  ? "($notifications_count)" : ''; ?></a>
              
             </li>
-            <li class="nav-item">
+            <li class="nav-item row">
               <?php include('./notif_messagerie.php'); ?>
-              <?php foreach($afficher_conversation as $ac) :?>
-                <?php if($ac->id_from != get_session('user_id') && $ac->lu == "1") : ?>                            
-               <a class="nav-link text-danger"  href="messagerie.php?id=<?=get_session('user_id')?>"> Nouveau Message reçu</a>
-               
-               <?php endif ; ?>
-               <?php endforeach ; ?>
+              
                
                 <a class="nav-link" href="messagerie.php?id=<?=get_session('user_id')?>">Messagerie</a>
                

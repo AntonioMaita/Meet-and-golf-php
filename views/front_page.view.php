@@ -6,16 +6,18 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <form action="" method="post"  enctype="multipart/form-data" >
-                        <label class="card-body bg-secondary text-white question"for="post">Quoi de neuf <?=e($user->pseudo)?> ?</label> <br> <br>
+                <label class="card-body bg-secondary text-white question"for="post">Quoi de neuf <?php echo $user_sess;?> ?</label> <br> <br>
+                <form action="" method="post"  enctype="multipart/form-data" >
+                                                                       
                         <textarea  name="post" id="post" cols="50" rows="5" placeholder="Entrez votre sujet"
                             class="form-control publishPost" data-parsley-maxlength="150"></textarea><br>
-                           <input type="file" id="file_post_image" name="file_post_image"style="visibility:hidden" >
-                           <i class="fas fa-image btn btn-lg float-start bg-success" onclick="$('#file_post_image').click();"></i>
-                            <input type="submit" class="btn btn-success btn-xl float-end" value="Publier" name="postmessage" >  <br> <br>
                             
-                        </form>
-                     
+                            <input type="file" id="file_post_image" name="file_post_image"style="visibility:hidden" >
+                           <i class="fas fa-image text-white btn btn-lg float-start bg-success" onclick="$('#file_post_image').click();"></i>
+                            <input type="submit" class="btn btn-success btn-xl float-end" value="Publier" name="postmessage" > 
+                            
+                        </form> <br>
+                        
                 </div>                
                                             
             </div>  
@@ -60,12 +62,11 @@
                                     </div>
                                 
                                     <p><i class="fa fa-clock-o"> <span class="timeago" title="<?= $user->date ?>"><?= $user->date ?></span></i></p> <br>
-                                                         
-                                   
+                                                             
                                    
                                    <p><?php echo nl2br(replace_links(e($user->post))); ?> <p> 
                                    <?php if($user->img): ?>
-                                   <a href="assets/images/<?=$user->img?>" target="_blank"><img class ="col-md-12" src="assets/images/<?=$user->img?>" alt="" width="auto"></a>
+                                   <a href="assets/images/<?=$user->img?>" target="_blank"><img class=" col-md-12  img-fluid" src="assets/images/<?=$user->img?>" alt=""></a>
                                    <?php endif;?>
                                    <br> 
                                     <hr class="text-dark">                                                      
@@ -133,8 +134,8 @@
                                 <div class="card card-text shadow" id="micropost<?=$micropost->m_id?>">
                                     <div class="card-group text-dark shadow "> 
                                     
-                                    <?php
-                                    if(!empty($micropost->avatar)) {
+                                        <?php
+                                        if(!empty($micropost->avatar)) {
                                                                                                                                             
                                         ?>                                                                 
                   
@@ -142,7 +143,7 @@
                                             <?php } else { ?> 
                                                 <a class="publishName" href="profile.php?id=<?=$micropost->user_id?>"><img class="rounded-circle" src="assets/avatars/defaults/default.png" alt="default" width="40px" height="40px"></a>
                                             <?php } ?>  
-                                        <p><a class="text-dark publishName" href="profile.php?id=<?=$micropost->user_id?>"><?=e($micropost->pseudo)?></a> a publié</p>
+                                        <p><a class="text-dark publishName" href="profile.php?id=<?=$micropost->user_id?>"><?=e($micropost->u_pseudo)?></a> a publié</p>
                                                                                 
                                        <?php if(get_session('user_id') == ($micropost->user_id) || get_session('user_id') == ($micropost->user_id) ): ?>
                                         <a  onclick="return confirm('Voulez-vous vraiment supprimer cette publication ?')" 
@@ -157,7 +158,7 @@
                                    
                                     <p> <?php echo nl2br(replace_links(e($micropost->content))); ?> <p> 
                                     <?php if($micropost->img): ?>
-                                    <a href="assets/images/<?=$micropost->img?>" target="_blank"><img class ="col-md-12" src="assets/images/<?=$micropost->img?>" alt="" width="auto"></a>
+                                    <a href="assets/images/<?=$micropost->img?>" target="_blank"><img class="img-fluid" src="assets/images/<?=$micropost->img?>" alt="" width="auto"></a>
                                    <?php endif;?>
                                     <hr class="text-dark">
                                     <div class="text-dark">

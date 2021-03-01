@@ -53,7 +53,8 @@
                         $extensionUpload = strtolower(substr($_FILES['file_post_image']['name'], -3));
                                 
                         if(in_array($extensionUpload, $extensionsValides)) {
-                                        $chemin = "assets/images/".$_FILES['file_post_image']['name'].".".$extensionUpload;
+                                        $randomfile = md5(uniqid(rand()));
+                                        $chemin = "assets/images/".$randomfile.".".$extensionUpload;
                                         $resultat = move_uploaded_file($_FILES['file_post_image']['tmp_name'], $chemin);
                     
                                     if($resultat) {
@@ -61,7 +62,7 @@
                                                 $q=$db->prepare('INSERT INTO post(post, img, users_id) VALUES (:post, :img, :users_id)');
                                                 $q->execute([
                                                     'post' => $post,
-                                                    'img' => $_FILES['file_post_image']['name'].".".$extensionUpload,
+                                                    'img' => $randomfile.".".$extensionUpload,
                                                     'users_id'=> get_session('user_id')
                                                 ]);                                                       
                                     
@@ -73,7 +74,9 @@
                             $msg = "Votre photo de profil doit être au format jpg, jpeg, gif ou png";
                             }     
     
-                    }
+                    } else {
+                        set_flash('Votre Photo ne doit pas dépasser 2Mo', 'danger');
+                         }
                 
                 } else {
 
@@ -130,6 +133,7 @@
         
         foreach ($users as $user) {
             $postDate = $user->date;
+            
         }
                
 
@@ -148,7 +152,7 @@
             redirect('index.php');
 
         } else {
-            $q = $db->prepare("SELECT U.id user_id, U.pseudo, U.email, U.avatar, 
+            $q = $db->prepare("SELECT U.id user_id, U.pseudo u_pseudo, U.email, U.avatar, 
                                 M.id m_id, M.content,M.img, M.created_at, M.like_count, M.comments_count
                                 FROM users U, microposts M, friends_relationships F 
                                 WHERE M.user_id = U.id 
@@ -178,6 +182,7 @@
             
             foreach ($microposts as $micropost){
                 $microDate = $micropost->created_at;
+                
             }
             
         }
@@ -211,7 +216,18 @@
        
         $comments_post_post = $q->fetchAll(PDO::FETCH_OBJ);
     }
+
+    $q = $db->prepare('SELECT pseudo FROM users WHERE id = ?');
+    $q->execute([get_session('user_id')]);
+
+    $users_session = $q->fetchAll(PDO::FETCH_OBJ);
+
+    foreach ($users_session as $user_session){
+        $user_sess = $user_session->pseudo;
+    }
+
 } else {
+
     redirect('front_page.php?id='.$_GET['id']);
 
 }    

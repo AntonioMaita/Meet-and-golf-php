@@ -1,4 +1,5 @@
 <?php 
+
 //Sanitizer
 if(!function_exists('e')){
 
@@ -416,7 +417,7 @@ if(!function_exists('replace_links')){
         $regex_url= "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\:[0-9]+)?(\/\S*)?/";
 
        return preg_replace($regex_url, "<a href=\"$0\" target=\"\_blank\">$0</a>", $texte);
-
+       
        
                 
     }

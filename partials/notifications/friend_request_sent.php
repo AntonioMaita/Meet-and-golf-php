@@ -1,4 +1,4 @@
-<a href="profile.php?id=<?= $notification->user_id ?>">
+<a class="btn" href="profile.php?id=<?= $notification->user_id ?>">
   <?php                   
     
     if(!empty($notification->avatar)) {                                                                                                                                    

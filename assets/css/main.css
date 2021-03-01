@@ -11,8 +11,12 @@
   @media (min-width: 768px) {
     .bd-placeholder-img-lg {
       font-size: 3.5rem;
-    }
+       } 
+           
   }
+
+
+
   .container {
       padding-top: 75px;
       
@@ -141,8 +145,6 @@ textarea.parsley-error {
 .card-footer {
   position: static;
   bottom: 0;
-  width: 100%;
-  height: 60px;
   
   
 }
@@ -178,7 +180,7 @@ textarea.parsley-error {
 }
 .link-display-box-user{
   
-  
+  margin-top: 10px;
   text-decoration: none;
   color : black;
   display : block;
@@ -197,7 +199,7 @@ textarea.parsley-error {
   margin-top : 20px;
   border-radius: 10px;
   box-shadow : 2px 2px 4px rgba(33, 33, 33, .4);
-  height: 450px;
+  height: 350px;
   overflow-y: scroll;
   overflow-x: hidden;
   position: relative;

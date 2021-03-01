@@ -1,7 +1,7 @@
 <?php
 
 if(isset($_GET['id'])){ 
-$q=$db->prepare("SELECT u.pseudo , u.id, u.avatar, m.message, m.date_message, m.id_from, m.lu 
+$q=$db->prepare("SELECT u.pseudo , u.email u_email, u.id, u.avatar, m.message, m.date_message, m.id_from, m.lu 
                 FROM (
                     SELECT IF(f.user_id1 = :id, f.user_id2, f.user_id1) id_utilisateur, MAX(m.id) max_id
                     FROM friends_relationships f
@@ -17,5 +17,10 @@ $q->execute([ 'id' => $_GET['id']]);
 
     }
 $afficher_conversation = $q->fetchAll(PDO::FETCH_OBJ);
+
+$q=$db->query("SELECT lu FROM  messagerie  WHERE lu = '1'");
+
+
+$count_lu= $q->fetchAll(PDO::FETCH_OBJ);
 
 ?>

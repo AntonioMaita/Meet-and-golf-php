@@ -28,10 +28,12 @@
 
         <p><i class="fa fa-clock-o text-dark"> <span class="timeago" title="<?= $micropost->created_at ?>"><?= $micropost->created_at ?></span></i></p> <br>
 
-        <p class="text-dark"><?= nl2br(replace_links(e($micropost->content))) ?></p>
+        <p class="text-dark"><?= nl2br(replace_links(e($micropost->content))) ?></p>     
+        
         <?php if($micropost->img) : ?>
-            <a href="assets/images/<?=$micropost->img?>" target="_blank"><img class ="col-md-12" src="assets/images/<?=$micropost->img?>" alt="" width="auto"></a>
+            <a href="assets/images/<?=$micropost->img?>" target="_blank"><img class ="img-fluid" src="assets/images/<?=$micropost->img?>" alt="" width="auto"></a>
         <?php endif ;?>
+                
         <hr class="text-dark">        
         <div class="text-dark ">         
             

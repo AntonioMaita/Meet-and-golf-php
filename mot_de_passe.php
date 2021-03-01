@@ -18,9 +18,9 @@ if(isset($_POST['email'])){
 	
 	
 	// "Bonjour, voici votre nouveau mot de passe : $password";
-	$header = "From: Meet and Golf <no-reply@meetadngolf.com> \n";
+	$headers = "From: Meet and Golf <no-reply@meetadngolf.com> \n";
 	$headers .='Content-Type: text/html; charset="utf-8"'."";
-	$header .= "Content-Transfer-Encoding: 8bit";
+	$headers .= "Content-Transfer-Encoding: 8bit";
 
 	if(mail($_POST['email'], 'Meet and Golf - Mot de passe oublié', $message, $headers)){
 		// $sql = "UPDATE users SET password = ? WHERE email =?";

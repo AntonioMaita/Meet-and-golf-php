@@ -18,4 +18,6 @@ if(!empty($_COOKIE['pseudo']) && !empty($_COOKIE['user_id'])) {
 
     $notifications_count = $q->rowCount();
 
+   
+
 auto_login();

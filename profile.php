@@ -56,6 +56,8 @@
 
     }
 
+     
+
         
     
   require('views/profile.view.php');

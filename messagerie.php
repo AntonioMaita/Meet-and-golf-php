@@ -32,10 +32,6 @@ $afficher_conversation = $q->fetchAll(PDO::FETCH_OBJ);
 
 
 
-
-
-
-
  
  require('views/messagerie.view.php');
 

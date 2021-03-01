@@ -1,6 +1,9 @@
 <a class="btn" href="profile.php?id=<?= $notification->user_id ?>">
-  <?php                 
-                  
+  <?php  
+  
+  
+                
+               
     if(!empty($notification->avatar)) {                                                                                                                                    
   ?>
     
@@ -13,4 +16,7 @@
 
  <?= e($notification->pseudo) ?>
  </a>
- a accepté votre demande d'amitié <span class="timeago" title="<?= $notification->created_at ?>"><?= $notification->created_at ?></span>.
+ vous a envoyé un message <span class="timeago" title="<?= $notification->created_at ?>"><?= $notification->created_at ?></span>.
+ <a class="btn btn-success" href="message.php?id=<?= $notification->user_id ?>">Lire le message</a>
+
+   

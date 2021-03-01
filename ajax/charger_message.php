@@ -38,12 +38,18 @@ $user= find_user_by_id($get_id);
 
 $q=$db->prepare("UPDATE messagerie SET lu = ? 
                 WHERE id_to = ? AND id_from = ?");
-$q->execute([0, $_SESSION['user_id'], $get_id]); ?>
+$q->execute([0, $_SESSION['user_id'], $get_id]);
+
+
+
+?>
+
+    
 
 
    <?php foreach($afficher_message as $am){ ?>
 
-               
+            
     <div class="message-droit"><?=nl2br(replace_links($am->message))?></div>
         
 <?php } ?>
