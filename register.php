@@ -52,7 +52,7 @@ include('filters/guest_filter.php');
                 ob_start();
                 require('templates/emails/activation.tmpl.php');
                 $content = ob_get_clean();
-
+                $headers = "From: Meet and Golf <no-reply@meetadngolf.com> \n";
                 $headers = 'MIME-Version: 1.0'."\r\n";
 
                 $headers .='Content-type: text/html; charset=utf-8'."\r\n";

@@ -1,7 +1,7 @@
 <?php    
     session_start();
 
-    require("includes/init.php");  
+    require("./includes/init.php");  
 
     include('filters/auth_filter.php');
     

@@ -8,11 +8,27 @@
     
   }
 
+  
+
   @media (min-width: 768px) {
     .bd-placeholder-img-lg {
       font-size: 3.5rem;
        } 
+
+             
            
+  }
+
+  .footer {
+    position: static;
+    width: 100%;
+    margin-top: 420px;
+    clear: both;
+    
+    bottom: 0;
+    
+    
+    
   }
 
 
@@ -142,12 +158,7 @@ textarea.parsley-error {
   outline: none;
 }
 
-.card-footer {
-  position: static;
-  bottom: 0;
-  
-  
-}
+
 
  a.link {
   text-decoration: none;

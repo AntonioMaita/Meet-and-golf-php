@@ -33,7 +33,7 @@
   </head>
   <body >
 
-<?php include('partials/_nav.php'); ?>
-<?php include('partials/_flash.php');?>
+<?php include('./partials/_nav.php'); ?>
+<?php include('./partials/_flash.php');?>
 
      

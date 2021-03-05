@@ -1,13 +1,14 @@
   
-  <div class =" card-footer bg-dark text-white col-md-12">
-    <div class="col-md-6">
-      <p>Meet and golf &copy <?php echo date('Y')?></p>      
-      <a href="change_password.php">Modifier votre mot de passe</a> <br>
-      <a href="logout.php">Se déconnecter</a> 
-      <div class="col-md-6 float-end">
-      <a href="#">Contacts</a>
-    </div>
-    </div>
+  <div class =" card-footer footer bg-dark text-white">
+    
+      <p>Meet and golf &copy <?php echo date('Y')?></p>
+      <?php if(is_logged_in() ):  ?>      
+      <a  class="<?= set_active('change_password')?>" href="change_password.php">Modifier votre mot de passe</a> <br>
+      <a  class="<?= set_active('logout')?>" href="logout.php">Se déconnecter</a>             
+      <?php endif ;?>
+      <br>
+      <a href="mailto:golf@decoeur.be">Contacts</a>
+    
     
   </div>
   
