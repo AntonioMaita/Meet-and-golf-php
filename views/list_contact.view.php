@@ -12,7 +12,7 @@
                 
                     <div>
                     
-                            <a href="message.php?id=<?=$ac->id?>" class="nav-link logo"  role="button" aria-expanded="false">                
+                            <a href="profile.php?id=<?=$ac->id?>" class="nav-link logo"  role="button" aria-expanded="false">                
                                     <?php                 
                                     
                                     if(!empty($ac->avatar)) {                                                                                                                                    

@@ -26,18 +26,17 @@
 
 
     //requete Post
-    if(isset($_POST['postmessage'])) {       
-
-        if (!empty($_POST['post'])) {
+    if(isset($_POST['publish'])){    
+        if(!empty($_POST['content'])){
             extract($_POST);
-
             $error=[];
-            if(mb_strlen($post) <3 || mb_strlen($post) > 140) {
+            if(mb_strlen($content) < 3 || mb_strlen($content) > 140) {
+    
                 set_flash('Contenu invalide (Minimum 3 caractères | Maximum 140 caractères)', 'danger');
     
             } else {
     
-                if(isset($_FILES['file_post_image']) AND !empty($_FILES['file_post_image']['name'])) {
+                if(isset($_FILES['file_micropost_image']) AND !empty($_FILES['file_micropost_image']['name'])) {
                         $tailleMax = 2097152;
                             // 2mo  = 2097152
                             // 3mo  = 3145728
@@ -48,99 +47,58 @@
                             // 12mo = 12582912
                             
                     $extensionsValides = array('jpg', 'jpeg', 'gif', 'png');
-                    if($_FILES['file_post_image']['size'] <= $tailleMax) {
+                    if($_FILES['file_micropost_image']['size'] <= $tailleMax) {
                         
-                        $extensionUpload = strtolower(substr($_FILES['file_post_image']['name'], -3));
+                        $extensionUpload = strtolower(substr($_FILES['file_micropost_image']['name'], -3));
                                 
                         if(in_array($extensionUpload, $extensionsValides)) {
                                         $randomfile = md5(uniqid(rand()));
                                         $chemin = "assets/images/".$randomfile.".".$extensionUpload;
-                                        $resultat = move_uploaded_file($_FILES['file_post_image']['tmp_name'], $chemin);
+                                        $resultat = move_uploaded_file($_FILES['file_micropost_image']['tmp_name'], $chemin);
                     
                                     if($resultat) {
     
-                                                $q=$db->prepare('INSERT INTO post(post, img, users_id) VALUES (:post, :img, :users_id)');
+                                                $q=$db->prepare('INSERT INTO microposts(content, img, user_id) VALUES (:content, :img, :user_id)');
                                                 $q->execute([
-                                                    'post' => $post,
+                                                    'content' => $content,
                                                     'img' => $randomfile.".".$extensionUpload,
-                                                    'users_id'=> get_session('user_id')
+                                                    'user_id'=> get_session('user_id')
                                                 ]);                                                       
                                     
                                         } else {
                                         
-                                                $msg = "Erreur durant l'importation de votre photo de profil";
+                                                $msg = "Erreur durant l'importation de votre photo";
                                         }
                         } else {
-                            $msg = "Votre photo de profil doit être au format jpg, jpeg, gif ou png";
+                           set_flash('Votre photo doit être au format jpg, jpeg, gif ou png', 'danger');
                             }     
     
                     } else {
                         set_flash('Votre Photo ne doit pas dépasser 2Mo', 'danger');
-                         }
+                    }
                 
                 } else {
-
-                    $q= $db->prepare('INSERT INTO post (post, users_id) VALUE (:post, :users_id)');
-
-                    $q->execute([
-                        'post' => $post,
-                        'users_id' => get_session('user_id')                   
-                        
-                        ]);
-                    
-                    set_flash("Publication envoyé");
+                                
+                    $updatecontent = $db->prepare('INSERT INTO microposts(content, user_id) VALUES (:content, :user_id)');
+                    $updatecontent->execute(array(
+                        'content' => $content ,           
+                        'user_id'=> get_session('user_id')                                                
+                    ));  
+                    set_flash('Votre status a été mis à jour!'); 
                     header('Location: front_page.php?id='.get_session('user_id'));
+ 
                 }
-        }
+            }
+        } 
+    
     }
 
-
-    }else {
-        clear_input_data();
-    }
 
     
-    if(!empty($_GET['id'])){        
-        
-        $q = $db->prepare("SELECT U.*, P.id as p_id, P.users_id, P.post,P.img, P.date, P.like_count, P.comments_count, F.*
-                            
-                            FROM users U, friends_relationships F , post P 
-                            WHERE P.users_id = U.id 
+    
 
-                            AND
-
-                            CASE
-                            WHEN F.user_id1 = :id
-                            THEN F.user_id2 = P.users_id
-
-                            WHEN F.user_id2 = :id
-                            THEN F.user_id1 = P.users_id
-
-                            
-                            END
-
-                            AND F.status > 0
-                            
-                            ORDER BY P.date DESC
-                            
-                            ");
-        $q->execute([
-            'id' => $_GET['id']
-            
-        ]);
-
-        $users = $q->fetchAll(PDO::FETCH_OBJ);
-        
-        foreach ($users as $user) {
-            $postDate = $user->date;
-            
-        }
-               
-
-    } else {
-        redirect('front_page.php');
-
-    }
+    
+    
 
 
     //Requete MicroPost
@@ -203,19 +161,7 @@
         }
     
 
-    if(isset($_GET['id']) && !empty($_GET['id'])){         
-
-       
-
-        $q = $db->query('SELECT  U.id u_id, U.pseudo u_pseudo, U.avatar u_avatar, C.id c_id , C.comment, C.post_id c_post_id, C.user_id c_user_id, P.id p_id , C.created_at c_created_at 
-                            FROM comments_post C , post P, users U
-                            WHERE  C.post_id = P.id AND C.user_id = U.id
-                            ORDER BY c_created_at ASC
-                            ');       
-                       
-       
-        $comments_post_post = $q->fetchAll(PDO::FETCH_OBJ);
-    }
+   
 
     $q = $db->prepare('SELECT pseudo FROM users WHERE id = ?');
     $q->execute([get_session('user_id')]);
